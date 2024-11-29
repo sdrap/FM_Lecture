@@ -1,0 +1,86 @@
+site_name: Financial Mathematics
+site_url: http://127.0.0.1:8000/
+
+theme:
+  name: material
+  features:
+    - content.tabs.link
+    - content.code.copy
+    - content.code.annotate
+    - navigation.tabs
+    - navigation.tabs.sticky
+    # - navigation.sections
+    - navigation.indexes
+    # - navigation.expand
+    - toc.follow
+    - toc.integrate
+  palette: #
+    - scheme: slate
+      primary: orange
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light
+    - scheme: default #
+      primary: white
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+  font:
+    text: Roboto Mono
+
+plugins:
+  - search
+  - bibtex:
+      bib_file: "bibliography.bib"
+
+extra:
+  generator: false
+
+nav:
+  - Home: index.md
+  - Lecture:
+      - Introduction: 
+          - Introduction: lecture/00-Introduction/000-index.md
+          - Notations: lecture/00-Introduction/001-notations.md
+      - One Period Model:
+          - Mathematical Model: lecture/01-One-Period/011-mathematical-model.md
+          - Arbitrage and Pricing: lecture/01-One-Period/012-arbitrage-pricing.md
+  - Material:
+      - Setup: material/material.md
+      - Homework 01: material/hw01.md
+      - Homework 02: material/hw02.md
+  # - Homework 03: material/hw03.md
+  #     - Homework 04: material/hw04.md
+  #     - Final Report: material/final.md
+  #     # - Simple Ex 01: material/ex01.md
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - javascripts/node_modules/mathjax/es5/tex-mml-chtml.js
+
+markdown_extensions:
+  - footnotes
+  - markdown_tables_extended
+  - attr_list
+  - md_in_html
+  - tables
+  - admonition
+  - def_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.tabbed:
+      alternate_style: true
