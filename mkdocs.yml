@@ -45,10 +45,11 @@ nav:
       - One Period Model:
           - Mathematical Model: lecture/01-One-Period/011-mathematical-model.md
           - Arbitrage and Pricing: lecture/01-One-Period/012-arbitrage-pricing.md
-  - Material:
-      - Setup: material/material.md
-      - Homework 01: material/hw01.md
-      - Homework 02: material/hw02.md
+          - Derivative Securities: lecture/01-One-Period/013-derivative-securities.md
+  # - Material:
+  #     - Setup: material/material.md
+  #     - Homework 01: material/hw01.md
+  #     - Homework 02: material/hw02.md
   # - Homework 03: material/hw03.md
   #     - Homework 04: material/hw04.md
   #     - Final Report: material/final.md

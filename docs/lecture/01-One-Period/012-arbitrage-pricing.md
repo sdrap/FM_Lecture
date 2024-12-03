@@ -3,7 +3,7 @@
 A fundamental concept in financial market is the notion of **Arbitrage**.
 Consider the following example
 
-!!! example "Arbitrage in a coint toss model"
+!!! example "Example: Arbitrage in a coint toss model"
 
     Consider the example of a simple coin toss model. Formally:
     
@@ -57,7 +57,7 @@ Economically, arbitrageurs would exploit this situation, driving the stock price
 
 ## Arbitrage
 
-!!! tip "**Definition** Arbitrage and Arbitrage Free Market"
+!!! definition "**Definition** Arbitrage and Arbitrage Free Market"
 
     A portfolio $\bar{V}$ with initial value $\bar{V}_0 \in \mathbb{R}$ and strategy $\boldsymbol{\eta} \in \mathbb{R}^d$ is called an **arbitrage** if
 
@@ -73,7 +73,7 @@ In other words, a self-financing strategy is an arbitrage if it guarantees a net
 
 There exists several equivalent way to express arbitrage as the following proposition states
 
-!!! danger "**Proposition** Arbitrage Equivalence"
+!!! proposition "**Proposition** Arbitrage Equivalence"
 
 
     The following statements are equivalent:
@@ -95,7 +95,7 @@ There exists several equivalent way to express arbitrage as the following propos
         P\left[\boldsymbol{\eta} \cdot \Delta \boldsymbol{X}_1 > 0\right] > 0
         $$
 
-??? quote "Proof"
+??? proof
     1. **Equivalence of (i) and (ii):**
         For a portfolio $\bar{V}$, $\bar{V}_1 \geq (1 + r)\bar{V}_0$ is equivalent to $V_1 \geq V_0$ by dividing the inequality by $1 + r > 0$. The same holds for the strict inequality.
 
@@ -103,7 +103,7 @@ There exists several equivalent way to express arbitrage as the following propos
         For a discounted portfolio $V$, $V_1 = V_0 + \boldsymbol{\eta} \cdot \Delta \boldsymbol{X}_1 \geq V_0$ is equivalent to $\boldsymbol{\eta} \cdot \Delta \boldsymbol{X}_1 \geq 0$ by subtracting $V_0$.
 
 
-??? question "Exercise"
+??? exercise
 
     Recall that the returns vector $\boldsymbol{R}_1$ are defined as
 
@@ -128,7 +128,7 @@ There exists several equivalent way to express arbitrage as the following propos
 
 As we will consequently see in the Fundamental Theorem of Asset Pricing, another central concept in financial market are **pricing measures**
 
-!!! tip "Pricing Measure"
+!!! definition "Definition: Pricing Measure"
 
     A probability measure $P^\ast$ is called a **pricing measure**(1) if:
     {.annotate}
@@ -143,7 +143,7 @@ As we will consequently see in the Fundamental Theorem of Asset Pricing, another
 In other words, under a pricing measure the discounted expected value of each asset equals its present price.
 
 
-!!! note "Vector notation and equivalent formulations"
+!!! remark "Remark: Vector notation and equivalent formulations"
 
     For a vector of random variables $\boldsymbol{Z} = (Z^1, \ldots, Z^d)$ and a probability measure $Q$, we denote:
     
@@ -165,7 +165,7 @@ In other words, under a pricing measure the discounted expected value of each as
     E^{P^\ast}[R_1^k] = r, \quad \text{for every } k = 1, \ldots, d
     $$
 
-!!! danger "**Lemma**"
+!!! lemma
 
     Suppose that the financial market admits a pricing measure $P^\ast$.
     Then
@@ -188,7 +188,7 @@ In other words, under a pricing measure the discounted expected value of each as
             E^{P^\ast}\left[ \boldsymbol{\eta}\cdot \Delta \boldsymbol{X}_1 \right] = 0
         $$
 
-??? quote "Proof"
+??? proof
     
     We just show the last assertion, the other two follows directly.
     Let $\boldsymbol{\eta} \in \mathbb{R}^d$ and $P^\ast$ be a pricing measure.
@@ -201,7 +201,7 @@ In other words, under a pricing measure the discounted expected value of each as
     $$
 
 
-In the following, we will consider those pricing measures $P^\ast$ that are equivalent to $P$.(1)
+In the following, we will consider those pricing measures $P^\ast$ that are equivalent to $P$(1).
 By the very definition, it follows in particular that if $P^\ast\sim P$ and $\boldsymbol{\eta}$ is an arbitrage strategy, then 
 {.annotate}
 
@@ -245,7 +245,7 @@ $$
 
 
 
-!!! danger "Fundamental Theorem of Asset Pricing (FTAP)"
+!!! theorem "Fundamental Theorem of Asset Pricing (FTAP)"
 
     In a financial market, the following conditions are equivalent:
 
@@ -253,7 +253,7 @@ $$
     2. <a id="cond:FTAP2">There exists at least one pricing measure $P^\ast \sim P$ with bounded density $dP^\ast/dP$.</a>
 
 
-??? quote "Proof sketch"
+??? proof "Proof: (sketch)"
 
     1. **Step 1 (easy direction):** condition [2.](#cond:FTAP2) implies [1.](#cond:FTAP1).  
         By contradiction, assume that there exists a pricing measure $P^\ast \sim P$ and an arbitrage strategy $\boldsymbol{\eta} \in \mathbb{R}^d$. We show that this is not possible.
@@ -341,8 +341,15 @@ $$
             $$
     
             showing that $\lambda \boldsymbol{x} + (1 - \lambda) \boldsymbol{y} \in \mathcal{C}$.
-    
-        If $0 \notin \mathcal{C}$, the Hahn-Banach separation theorem implies that there exists a vector $\boldsymbol{\eta} \in \mathbb{R}^d$ such that:
+
+        The fact that $0 \notin \mathcal{C}$, where $\mathcal{C}$ is not a convex set, the Hahn-Banach theorem allows to separate with a line (an hyperplane) the point from the convex set.
+
+        ![Separation](./../../images/separation_dark.svg#only-dark)
+        ![Separation](./../../images/separation_white.svg#only-light)
+
+
+
+        It translates mathematicaly into the existence of a vector $\boldsymbol{\eta} \in \mathbb{R}^d$ such that:
     
         $$
         \begin{cases}
@@ -408,20 +415,114 @@ $$
 This Theorem is called a theorem and fundamental because it states an **if and only if** assertion between a somehow economical concept (no arbitrage) and a mathematical concept (the existence of a pricing measure).
 This statement will have many consequences that will unfold while studying derivative pricing.
 
-However an immediate consequence of which is the so called **Law of One Price** which is often stated as given in finance, which however is a consequence of the FTAP.
+However, an immediate consequence of which is the so called **Law of One Price**, often stated as given in finance, yet is a consequence of the FTAP.
 
 
-!!! danger "Law of One Price"
+!!! theorem "Theorem: Law of One Price"
 
-    Suppose that you are given two portfolios $\bar{V}$ and $\tilde{V}$ with exact same outcome tomorrow, that is
+    If the market is arbitrage free, then for any two portfolios $\bar{V}$ and $\tilde{V}$ with exact same outcome tomorrow, that is
 
+    \[
+      P\left[ \bar{V}_1 = \tilde{V}_1\right] = 1
+    \]
+
+    the value of each portfolio at time $0$ is the same, that is $\bar{V}_0 = \tilde{V}_0$
+
+??? proof
+
+    By the fundamental theorem of asset pricing, no arbitrage is equivalent to the existence of a pricing measure $P^\ast$ equivalent to $P$. Let further $\bar{V}$ and $\tilde{V}$ be two portfolio such that
+    
     $$
-      \bar{V}_1(\omega) = \tilde{V}_1(\omega) \quad \text{for all }\omega
+      P\left[ \bar{V}_1 =\tilde{V}_1\right]=1
+    $$
+    
+    Since $P^\ast \sim P$, it follows that
+    
+    $$
+      P^\ast\left[ \bar{V}_1 =\tilde{V}_1\right]=1
+    $$
+    
+    showing that $E^{P^\ast}\left[ \bar{V}_1 \right] = E^{P^\ast}\left[ \tilde{V}_1 \right]$.
+    
+    Furthermore, it holds that
+    
+    $$
+      \frac{\bar{V}_1}{1+r} = \bar{V}_0 + \boldsymbol{\eta}\cdot \Delta \boldsymbol{X}_1 \quad \text{and}\quad \frac{\tilde{V}_1}{1+r} = \tilde{V}_0 + \tilde{\boldsymbol{\eta}}\cdot \Delta \boldsymbol{X}_1
+    $$
+    
+    for some $\boldsymbol{\eta}$ and $\tilde{\boldsymbol{\eta}}$ in $\mathbb{R}^d$.
+    
+    Taking expectation under the pricing measure, it follows that
+    
+    $$
+    \begin{align*}
+      \bar{V}_0 & = \bar{V}_0 + \underbrace{\boldsymbol{\eta}\cdot E^{P^\ast}\left[ \Delta \boldsymbol{X}_1 \right]}_{=0\text{ since }P^\ast \text{ is a pricing measure}}\\
+      & = E^{P^\ast}\left[  \bar{V}_0 + \boldsymbol{\eta}\cdot \Delta \boldsymbol{X}_1\right]\\
+      & = E^{P^\ast}\left[ \frac{\bar{V}_1}{1+r} \right]\\
+      & = E^{P^\ast}\left[ \frac{\tilde{V}_1}{1+r} \right]\\
+      & = E^{P^\ast}\left[  \tilde{V}_0 + \tilde{\boldsymbol{\eta}}\cdot \Delta \boldsymbol{X}_1\right]\\
+      & = \tilde{V}_1
+    \end{align*}
     $$
 
-    Then the following assertions are equivalent
 
-    1. The market is arbitrage free
-    2. The value of each portfolio at time $0$ is the same, that is $\bar{V}_0 = \tilde{V}_0$
+This statement stipulates that if a market is arbitrage free, regardless the portfolio you have in the market, if those deliver the same outcome, then their financing costs has to be the same.
 
+
+
+The statement of the FTAP seems to be quite abstract, but is has a very easy interpretation in terms of linear algebra when the set of possible states is finite.
+Indeed, consider the following financial market where 
+
+* $\Omega = \{\omega_1, \ldots, \omega_N\}$
+* $\mathcal{F} = 2^\Omega$.  
+* $P$ is a probability measure specified by the vector $\boldsymbol{p}=(p_1, \ldots, p_N)$ where $p_i = P[\{\omega_i\}] >0$ and $\sum p_i =1$.
+
+We have a bank account with:
+
+$$
+B_0 = 1, \quad B_1 = 1 + r
+$$
+
+for some $r>-1$.
+
+As for the finanical asset, suppose that we have a single one:
+
+$$
+S_0 > 0 \quad \text{and} \quad S_1(\omega_i) = s_i > 0.
+$$
+
+Up to reordering, we assume that $0 < s_1 < s_2 < \ldots < s_N$, and denote $\boldsymbol{s} = (s_1, \ldots, s_N)$ as the vector of payoffs for $S^1$ at time $1$. 
+
+Since the state space is finite, any expectation of the asset price can be written as
+
+$$
+\begin{equation*}
+  E^{Q}\left[ S_1 \right] = \boldsymbol{s}\cdot \boldsymbol{q}
+\end{equation*}
+$$
+
+where $\boldsymbol{q} = (q_1, \ldots, q_N)$ represent a probability equivalent to $P$ if and only if $q_i>0$ for every $i$.
+
+Hence the  market is arbitrage-free if and only if
+
+$$
+(1 + r)S_0 \in \left\{\boldsymbol{s} \cdot \boldsymbol{q} \colon \boldsymbol{q} \in \mathbb{R}^d, \sum q_i =1 , \; q_i > 0 \text{ for every } i\right\} = (s_1, s_N)
+$$
+
+This means the market is arbitrage-free if and only if the following system of equations:
+
+$$
+\begin{cases}
+    q_1 s_1 + \cdots + q_n s_n = (1 + r)S_0 \\
+    q_1 + \cdots + q_n = 1 \\
+    q_i > 0 & \text{for all } i
+\end{cases}
+$$
+
+admits at least one solution.  
+
+If a solution exists, it is unique if and only if $N = 2$.
+
+If you extend to several assets $d$, then you will end up with $d+1$ equations in the system. 
+If a solution exists then it is unique if and only if $N = d+1$
 

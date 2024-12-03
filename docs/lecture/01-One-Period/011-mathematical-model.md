@@ -48,7 +48,7 @@ $$
 \end{equation*}
 $$
 
-Each $S^k$ for $k = 1, \ldots, d$ describes the price evolution of financial asset $k$ between time $0$ and time $1$.
+Each $S^k$ for $k = 1, \ldots, d$ describes the price evolution of financial asset $k$ between time $0$ and $1$.
 
 - **At time $0$:** The price of asset $k$ is $S_0^k$, which is strictly positive and known:
 
@@ -99,7 +99,7 @@ A *portfolio* consists of holdings in each financial asset and the balance in th
 
 Hence a portfolio over time is entirely determined by its start value $\bar{V}_0$ as well as the strategy $\boldsymbol{\eta} = (\eta^1, \ldots, \eta^d)$.
 
-??? note "How realistic are those assumptions?"
+??? remark "Remark: How realistic are those assumptions?"
     In this setting, we make somewhat restrictive assumptions that are disputable namely:
 
     * No dividends.
@@ -135,8 +135,8 @@ $$
 \begin{align*}
 	V_1  	& = \frac{\bar{V}_1}{1+r}\\
 	  		& = \frac{1}{1+r}\left(\bar{V}_0(1+r) +\sum_{k=1}^d \eta^k\left( S^k_1  - (1+r)S_0^k\right)\right)\\
-	  		& = \bar{V}_0(1+r) +\sum_{k=1}^d \eta^k\left( \frac{S^k_1}{1+r}  - S_0^k\right)\\
-				& = V_0 + \sum_{k=1}^n \eta_k\left( X^k_1 - X^k_0 \right)\\
+	  		& = \bar{V}_0 +\sum_{k=1}^d \eta^k\left( \frac{S^k_1}{1+r}  - S_0^k\right)\\
+				& = V_0 + \sum_{k=1}^n \eta^k\left( X^k_1 - X^k_0 \right)\\
 	      & = V_0 + \boldsymbol{\eta} \cdot \left( \boldsymbol{X}_1 - \boldsymbol{X}_0 \right) = V_0 + \boldsymbol{\eta} \cdot \Delta \boldsymbol{X}_1
 \end{align*}
 $$
@@ -179,7 +179,7 @@ Similarly, the discounted self-financing portfolio value at time $1$ and the dis
 
 $$
 \begin{align*}
-  \boldsymbol{X}_1\colon \Omega &\longrightarrow \mathbb{R}_{++}^d & V_1 \colon \Omega &\longrightarrow \mathbb{R} \\
+  \boldsymbol{X}_1\colon \Omega &\longrightarrow \mathbb{R}_{+}^d & V_1 \colon \Omega &\longrightarrow \mathbb{R} \\
   \omega & \longmapsto \boldsymbol{X}_1(\omega) = \left( \frac{S_1^1(\omega)}{1+r}, \ldots, \frac{S_1^d(\omega)}{1+r} \right) & \omega &\longmapsto V_1(\omega) = V_0 + \boldsymbol{\eta} \cdot \Delta \boldsymbol{X}_1(\omega)
 \end{align*}
 $$
@@ -187,7 +187,7 @@ $$
 The objective of financial mathematics is to estimate or price these state-dependent portfolios. To achieve this, we need further assessments of how likely each event is to occur. This is where stochastic theory plays a crucial role.
 
 
-!!! tip "**Definition:** One period financial market"
+!!! definition "**Definition:** One Period Financial Market"
     Given a probability space $(\Omega, \mathcal{F}, P)$, a **financial market** is defined as follows:
     
     - **A bank account** $B$, where:
@@ -220,7 +220,7 @@ The objective of financial mathematics is to estimate or price these state-depen
     $$
 
 
-??? warning "What about returns, portfolio weights?"
+??? warning "**Warning:** What about returns, portfolio weights?"
     
     Very often in finance, the exposition is done in terms of returns and portfolio weights.
     Talking in terms of returns and weights requires some particular care.
