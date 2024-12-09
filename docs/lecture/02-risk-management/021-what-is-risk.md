@@ -204,7 +204,7 @@ However, since we are more interested in the downside risks, we consider risk me
           \end{align*}
         \]
     
-    3. For the last assertion, let \( L_1 \) and \( L_2 \) be such that \( F_{L_1} = F_{L_2} \).
+    3. **Law Invariance:** For the last assertion, let \( L_1 \) and \( L_2 \) be such that \( F_{L_1} = F_{L_2} \).
       It follows that:
       
         \[
@@ -425,14 +425,94 @@ Typical values for \( \alpha \) are 5%, 1%, or 0.5%, depending on the horizon.
         Using `brentq`, as a bissecant type, requires to provide two bounds `a<b` within which that root shall be found. In particular it should hold that `fun(a)` has a different sign as `fun(b)`.
         Both have advantages and inconvenience.
 
-find the root of the following function
 
-    \[ 
-      \begin{equation*}
-	      m\mapsto F_{L}(m)-(1-\alpha)
-      \end{equation*}
-    \]
+As for mean-variance, value at risk also fulfills some properties
 
-    for which every scientific library has methods for.
+!!! proposition
+
+    The Value at Risk V@R satisfies the following properties:
+
+    1. **Cash-invariance**: For every loss profile \( L \) and \( m \in \mathbb{R} \),
+
+        \[
+          V@R_{\alpha}(L - m) = V@R_{\alpha}(L) - m.
+        \]
+    
+    2. **Monotonicity**: For any two loss profiles \( L_1, L_2 \) with \(L_1(\omega) \leq L_2(\omega)\) it holds,
+       
+        \[
+          V@R_{\alpha}(L_1) \leq V@R_{\alpha}(L_2).
+        \]
+    
+    3. **Law Invariance**: If two loss profiles \( L_1 \) and \( L_2 \) have the same CDF, then:
+       
+        \[
+          V@R_{\alpha}(L_1) = V@R_{\alpha}(L_2).
+        \]
+    
+??? proof
+
+    1. **Cash-invariance:** For every \( m \in \mathbb{R} \), and loss \( L \), it holds with variable change $\hat{m} = \tilde{m} - m$:
+
+        \[
+          \begin{align*}
+             V@R_{\alpha}(L-m) & = \inf\left\{ \tilde{m} \in \mathbb{R} \colon P[L-m>\tilde{m}] \leq \alpha \right\}\\
+                            & = \inf \left\{ \hat{m} - m \colon P[L>\hat{m}] \leq \alpha  \right\}\\
+                            & = \inf \left\{ \hat{m} \colon P[L>\hat{m}] \leq \alpha  \right\} - m = V@R_{\alpha}(L) - m
+          \end{align*}
+        \]
+       
+    2. **Monotonicity:** Let \( L_1 \leq L_2 \) be two loss profiles.
+
+        For any $m$, it holds
+
+        \[
+            \left\{ \omega \colon L_1(\omega)\leq m \right\} \supseteq \left\{ \omega \colon L_2(\omega)\leq m \right\}
+        \]
+
+        showing that for every $m$ we have $P[L_1\leq m] \geq P[L_2 \leq m]$.
+        Hence, we have
+
+        \[
+            \left\{ m \in \mathbb{R} \colon P\left[ L_1\leq m \right]\geq 1-\alpha \right\} \subseteq  \left\{ m \in \mathbb{R} \colon P\left[ L_2\leq m \right]\geq 1-\alpha \right\}
+        \]
+
+        showing that the infimum of the the left handside is smaller than the infimum of the right hand side, that is $V@R_{\alpha}(L_1)\leq V@R_{\alpha}(L_2)$. 
+
+    
+    3. **Law Invariance:** This follows immediately since the value at risk depends only on the CDF.
+    
+## Sound Properties?
+
+Both risk assessement do make sense and have a certain appeal.
+Let us discuss some of the properties they fulfill.
+
+* **Cash Invariance:** given a risk assessment instrument $L \mapsto R(L)$, being cash invariant means that $R(L-m) = R(L) - m$.
+    This is a property that economists as well as regulator do like as it confers a certain monetary meaning to the risk assessment.
+
+    Indeed, usually regulators wants financial institutions to keep their total risk below $0$.
+    Now as a financial institution, I have a loss exposure $L$ in financial assets.
+    The question is how much liquidiy (or cash) shall be in the bank account to make the overall risk lower than $0$.
+    Together with cash $m$ and risky exposure $L$, the resulting loss profile is $L-m$ for which the risk is equal to $R(L-m)$.
+    A risk acceptance being smaller than $0$ means that $m\geq R(L)$.
+    In other terms, the minimal cash requirement to make the risky exposure acceptable in terms of liquidity is $m = R(L)$.
+
+* **Law Invariance:**
+
+    The law invariance is important in so far that even if we consider random variables, in practive we can only observe the realization of which and therefore an approximation of the CDF.
+    Hence a risk assessment instrument shall only depend on the CDF of the loss profile.
+
+* **Monotonicity:** Monotonicity means that whenever the loss profile of one position is in any case larger than another position, i.e. loose more money in any cases, then its risk should be higher.
+
+* **Diversification:** (here convexity) means that diversifying between to risky assets (a convex combination), the resulting risk is going to be lower than the worse of the other two risks.
+
+
+| Property | $MVR_{\alpha}$ | $V@R_{\alpha}$ |
+|:---------|:--------------:|:--------------:|
+| Cash Invariance | :material-check-all: | :material-check-all: |
+| Law Invariance |:material-check-all: | :material-check-all: |
+| Monotonicity | :material-close:|:material-check-all: |
+| Diversification |:material-check-all: | :material-close: | 
+
 
 
