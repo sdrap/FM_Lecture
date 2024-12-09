@@ -46,6 +46,8 @@ nav:
           - Mathematical Model: lecture/01-One-Period/011-mathematical-model.md
           - Arbitrage and Pricing: lecture/01-One-Period/012-arbitrage-pricing.md
           - Derivative Securities: lecture/01-One-Period/013-derivative-securities.md
+      - Risk Management:
+          - What is Risk: lecture/02-risk-management/021-what-is-risk.md
   # - Material:
   #     - Setup: material/material.md
   #     - Homework 01: material/hw01.md

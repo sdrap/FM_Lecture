@@ -429,32 +429,33 @@ In a nuttshell that the following illustration holds
     \]
 
     The same argumentation shows that $\overline{\pi}(C) = \inf \Pi(C)$.
-
-    We are left to show that $\overline{\pi}(C)$ is in $I$.
-    Without loss of generality, due to the law of one price, we may assume that there is no redundancy; that is, $\boldsymbol{\eta} \cdot \Delta \boldsymbol{X}_1 = 0$ implies $\boldsymbol{\eta} = 0$.  
-
-    Pick a sequence $(m_n)$ of elements in $I$ such that $m_n \downarrow \overline{\pi}(C)$ and denote by $\boldsymbol{\eta}^n$ the corresponding sequence of strategies such that:
-
-    \[
-        m_n + \boldsymbol{\eta}^n \cdot \Delta \boldsymbol{{X}_1 \geq \frac{C}{1 + r}.
-    \]
-
-    If $(\boldsymbol{\eta}^n)$ is bounded, up to a subsequence, we may assume that $\boldsymbol{\eta}^n \to \boldsymbol{\eta} \in \mathbb{R}^d$, for which it holds:
-
-    \[
-        \frac{C}{1 + r} \leq m_n + \boldsymbol{\eta}^n \cdot \Delta \boldsymbol{X}_1 \to \bar{\pi}(C) + \boldsymbol{\eta} \cdot \Delta \boldsymbol{X}_1,
-    \]
-
-    showing that $\bar{\pi}(C)$ is in I.
-
-    If $\lim \|\boldsymbol{\eta}^n\| = \infty$, up to a subsequence, it follows that $\boldsymbol{\eta}^n / \|\boldsymbol{\eta}^n\| \to \boldsymbol{\mu}$ with $\|\boldsymbol{\mu}\| = 1$.
-
-    However, it follows that:
-    \[
-        0 \leq \lim \frac{C}{\|\boldsymbol{\eta}^n\|(1 + r)} = \lim \frac{\boldsymbol{\eta}^n}{\|\boldsymbol{\eta}^n\|} \cdot \Delta \boldsymbol{X}_1 + \frac{m_n}{\|\boldsymbol{\eta}^n\|} = \boldsymbol{\mu} \cdot \Delta \bs{X}_1
-    \]
-
-    Since the market is arbitrage-free, it must follow that $\boldsymbol{\mu} \cdot \Delta \boldsymbol{X}_1 = 0$, which by the non-redundancy assumption implies $\boldsymbol{\mu} = 0$, leading to a contradiction since $\|\boldsymbol{\mu}\| = 1$.
+    ??? warning "Warning, the last part of the assertion calls for compactness arguments" 
+        We are left to show that $\overline{\pi}(C)$ is in $I$.
+        Without loss of generality, due to the law of one price, we may assume that there is no redundancy; that is, $\boldsymbol{\eta} \cdot \Delta \boldsymbol{X}_1 = 0$ implies $\boldsymbol{\eta} = 0$.  
+    
+        Pick a sequence $(m_n)$ of elements in $I$ such that $m_n \downarrow \overline{\pi}(C)$ and denote by $\boldsymbol{\eta}^n$ the corresponding sequence of strategies such that:
+    
+        \[
+            m_n + \boldsymbol{\eta}^n \cdot \Delta \boldsymbol{X}_1 \geq \frac{C}{1 + r}.
+        \]
+    
+        If $(\boldsymbol{\eta}^n)$ is bounded, up to a subsequence, we may assume that $\boldsymbol{\eta}^n \to \boldsymbol{\eta} \in \mathbb{R}^d$, for which it holds:
+    
+        \[
+            \frac{C}{1 + r} \leq m_n + \boldsymbol{\eta}^n \cdot \Delta \boldsymbol{X}_1 \to \bar{\pi}(C) + \boldsymbol{\eta} \cdot \Delta \boldsymbol{X}_1,
+        \]
+    
+        showing that $\bar{\pi}(C)$ is in I.
+    
+        If $\lim \|\boldsymbol{\eta}^n\| = \infty$, up to a subsequence, it follows that $\boldsymbol{\eta}^n / \|\boldsymbol{\eta}^n\| \to \boldsymbol{\mu}$ with $\|\boldsymbol{\mu}\| = 1$.
+    
+        However, it follows that:
+    
+        \[
+            0 \leq \lim \frac{C}{\|\boldsymbol{\eta}^n\|(1 + r)} = \lim \frac{\boldsymbol{\eta}^n}{\|\boldsymbol{\eta}^n\|} \cdot \Delta \boldsymbol{X}_1 + \frac{m_n}{\|\boldsymbol{\eta}^n\|} = \boldsymbol{\mu} \cdot \Delta \boldsymbol{X}_1
+        \]
+    
+        Since the market is arbitrage-free, it must follow that $\boldsymbol{\mu} \cdot \Delta \boldsymbol{X}_1 = 0$, which by the non-redundancy assumption implies $\boldsymbol{\mu} = 0$, leading to a contradiction since $\|\boldsymbol{\mu}\| = 1$.
 
 
 !!! definition
@@ -511,4 +512,182 @@ On the other hand, the proposition shows that unless the claim is attainable, th
 The choice of a fair price (and therefore a deal) for such a contingent claim is henceforth due to an agreement between the buyer and the seller to choose a price within the interval $\Pi(C)$.
 Therefore, they both have to accept some downside risk since neither will have a price in their confort risk free zone.
 
+!!! example "Example: Forward Contract"
 
+    Recall that forward contract are contingent claims of the form(1)
+    {.annotate}
+
+    1.  Note first that forward contract are not necessarily positive random variable, but usually for contingent claims we can assume that they are greater than some constant.
+
+    \[
+      C^{fw}(K) = S_1 - K 
+    \]
+
+    Suppose that our market is arbitrage free and choose any pricing measure $P^\ast$ equivalent to $P$.
+    Taking expectation of the the discounted value of the contingent claim yields
+
+    \[
+      E^{P^\ast}\left[ \frac{C^{fw}}{1+r} \right] = E^{P^\ast}\left[ \frac{S_1}{1+r} \right] - \frac{K}{1+r} = S_0 - \frac{K}{1+r}
+    \]
+    
+    showing that the fair price of the forward contract is unique.
+    It is not surpising as the payoff can be immediately replicated by a portfolio.
+
+    However in financial markets, people speaks and quote the so called **forward price**.
+    The definition of a forward price $F$ is the value of the strike $K$ such that the fair price of the forward contract is equal to $0$.
+    In other term, the forward price $F$ is given by
+
+    \[
+      F = (1+r) S_0
+    \]
+
+
+## European Call and Put Options
+
+The European call and put options are ubiquitous in finance as the most simple types of options.
+
+Recall the payoff of such options
+
+\[
+\begin{align*}
+  C^{call}(K) & = (S_1-K)^+ & 
+  C^{put}(K) & = (K-S_1)^+
+\end{align*}
+\]
+
+We suppose that the market is arbitrage free and denote with $\pi^{call}(K)$ and $\pi^{put}(K)$ the fair prices for each option.
+
+
+Since both prices are fair, there exists a pricing measure $P^\ast \sim P$ in the extended market where those two options are traded together with the underlying.
+It holds in particular that
+
+\[
+\pi^{call}(K) = E^{P^\ast}\left[ \frac{(S_1 - K)^+}{1+r} \right] \quad \text{and}\quad \pi^{put}(K) = E^{P^\ast}\left[ \frac{(K - S_1)^+}{1+r} \right]
+\]
+
+
+### Put Call Parity
+
+Using the fact that $(S_1-K)^+ - (K-S_1)^- = S_1-K$ we can derive the so called put/call parity by taking expectation under $P^\ast$:
+
+\[
+\pi^{call}(K) - \pi^{put}(K) =  E^{P^\ast}\left[\frac{(S_1-K)^+ - (K-S_1)^+}{1+r}\right] = E^{P^\ast}\left[ \frac{S_1-K}{1+r} \right] = S_0 - \frac{K}{1+r}
+\]
+
+!!! danger "Put Call Parity"
+
+    \[
+      \pi^{call}(K) - \pi^{put}(K) = S_0 - \frac{K}{1+r}
+    \]
+
+### Universal Price Bounds
+
+In an arbitrage free market, let $\pi^{call} = E^{P^\ast}[C^{call}/(1+r)]$ be any fair price for this call option.
+We are interested at providing bounds for the fair price of this call option.
+
+On the one hand, it holds that $S-K \leq (S-K)^+$.
+Taking the expectation under $P$ of the discounted value of this inequality together with the fact that $\pi^{call} \geq 0$ yields
+
+\[
+  \left(S_0 - \frac{K}{1+r}\right)^+ \leq \pi
+\]
+
+On the other hand, it holds that $(S_1-K)^+ \leq S_1$, taking expectation of the discounted value of this inequality yields
+
+\[
+    \pi^{call} \leq S_0
+\]
+
+showing the universal bounds for call options $(S_0 - K/(1+r))^+ \leq \pi{call}\leq S_0$ for any fair price for the call.
+
+Using put call parity, for any fair price for the put $\pi^{put}$ it holds that $K/{1+r}\geq \pi^{put}\geq (S_0-K/(1+r))^+ + K/(1+r) - S_0 = (K/(1+r) - S_0)^+$.
+
+
+!!! danger "Universal Price Bounds"
+    
+    \[
+      \begin{equation*}
+      \begin{cases}
+         \left( S_0 -\frac{K}{1+r} \right)^+ \leq \underline{\pi}\left( C^{call}(K) \right) \leq \overline{\pi}\left( C^{call}(K) \right)\leq S_0\\
+          \\
+          \frac{K}{1+r} \leq \underline{\pi}\left( C^{put}(K) \right) \leq \overline{\pi}\left( C^{put}(K) \right)\leq \left( \frac{K}{1+r} - S_0 \right)^+
+      \end{cases}
+      \end{equation*}
+    \]
+
+### Jargon
+
+A lot of jargon is connected to these options.
+
+* **Intrinsic Value:** The intrinsic value of the option is the value if it were executed now, that is
+
+    \[IV^{call} = (S_0-K)^+ \quad \text{and}\quad IV^{put} = (K-S_0)^+\]
+
+* **In/At/Out of the Money:** An option is called *in the money* if its intrinsic value is strictly positive, *at the money* if the underlying price equal the strike, *out of the money* if the intrinsic value is $0$ and the underlying price is not equal to the strike.
+
+* **Moneyness:** Moneyness is a concept that has no rigorous definition but stems from a particular property of the call/put option, the positive homogeneity of their payoff, that it $(\lambda x)^+ = \lambda x^+$ for any $\lambda >0$.
+
+    We can therefore normalize the payoff of options by either $K$, $S_0$ or $K/(1+r)$, etc.
+    Most of those normalizations are brought in connection with the resulting Black-Scholes-Merton formula, but let us stress some aspects of this definition.
+    The simple version of moneyness is related to the intrinsic value of the option.
+    In the case of a call, we can normalize by the strike where the simple spot moneyness is defined as $S_0/K$.
+    Indeed, it holds
+
+    \[
+      \pi^{call}(K) = K E^{P^\ast}\left[ \frac{1}{1+r}\left( \frac{S_1}{K} - 1 \right)^+ \right] 
+    \]
+
+    The intrinsic value of the normalize option in the inner part of the expectation is $(S_0/K-1)^+$ and therefore is in the money iff the simple (call) spot moneyness is greater than one and out of the money otherwise.
+
+    In the case of the put option we normalize by the current underlying price $S_0$, that is, the simple spot moneyness is defined as $K/S_0$:
+
+    \[
+      \pi^{put}(K) = S_0 E^{P^\ast}\left[ \frac{1}{1+r}\left(\frac{K}{S_0}- \frac{S_1}{S_0} \right)^+ \right] 
+    \]
+
+    The intrinsic value of this normalized option in the inner part of the expectation is $(K/S_0 -1)^+$ which is positive iff the simple (put) spot moneyness is greater than one and out of the money otherwise.
+
+    Since those definition is rather confusing, always rely on your mathematical knowledge about what each should mean.
+
+<!-- * **Moneyness:** A particular property of the call/put option comes from the positive homogeneity of their payoff, that it $(\lambda x)^+ = \lambda x^+$ for any $\lambda >0$ -->
+<!-- A second property of those options is the *positive homogeneity* of the payoff since $\lambda x^+ = (\lambda x)^+$ for every $\lambda >0$. -->
+<!--     It follows that we can normalize the price of call/put options by the strike as follows -->
+<!---->
+<!--     \[ -->
+<!--       \begin{align*} -->
+<!--           \pi^{call}(K) & = \frac{K}{1+r} E^{P^\ast}\left[ \left( \frac{S_1}{K} - 1\right)^+ \right]\\ -->
+<!--           \pi^{put}(K) & = \frac{K}{1+r} E^{P^\ast}\left[ \left( 1- \frac{S_1}{K} \right)^+ \right] -->
+<!--       \end{align*} -->
+<!--     \] -->
+<!---->
+<!---->
+<!---->
+<!---->
+<!---->
+<!---->
+<!-- !!! example "Example: Call Option price bounds" -->
+<!---->
+<!--     Recall the payoff of a European call option $C^{call}(K) = (S_1 - K)^+$. -->
+<!--     In an arbitrage free market, let $\pi = E^{P^\ast}[C^{call}/(1+r)]$ be any fair price for this call option. -->
+<!--     We are interested at providing bounds for the fair price of this call option. -->
+<!---->
+<!--     On the one hand, it holds that $S-K \leq (S-K)^+$. -->
+<!--     Taking the expectation under $P$ of the discounted value of this inequality together with the fact that $\pi \geq 0$ yields -->
+<!---->
+<!--     \[ -->
+<!--       \left(S_0 - \frac{K}{1+r}\right)^+ \leq \pi -->
+<!--     \] -->
+<!---->
+<!--     On the other hand, it holds that $(S_1-K)^+ \leq S_1$, taking expectation of the discounted value of this inequality yields -->
+<!---->
+<!--     \[ -->
+<!--         \pi \leq S_0 -->
+<!--     \] -->
+<!---->
+<!--     showing the universal bounds for call options $(S_0 - K/(1+r))^+ \leq \pi \leq S_0$ for any fair prices. -->
+<!--     In other terms, it holds -->
+<!---->
+<!--     \[ -->
+<!--         \underbrace{\left( S_0 -\frac{K}{1+r} \right)^+}_{\text{Intrinsic value of the call option}}\leq \underline{\pi}\left( C^{call}(K) \right) \leq \overline{\pi}\left( C^{call}(K) \right)\leq S_0 -->
+<!--     \] -->
+<!---->

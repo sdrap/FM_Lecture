@@ -1,0 +1,438 @@
+# What is Risk
+
+Even if the notion of risk is colloquial and everyone intuitively understands it, it is far from clear what it is the exact definition.
+
+We saw in the previous chapter how to price contingent claims in a "risk-neutral way" ensured by an arbitrage-free financial market. However, such pricing does not tell us much about the amount of "risk" one undertakes when investing in one product or another.
+
+Let us consider the following example.
+
+
+!!! example
+
+
+    Let $\Omega=\{\omega_1,\omega_2,\omega_3\}$, $\mathcal{F}=2^\Omega$, and the "objective probability" measure $P$ given by $P[\{\omega_1\}]=0.1$, $P[\{\omega_2\}]=0.85$, and $P[\{\omega_3\}]=0.05$. Our bank account $B_0=1$ and $B_1=(1+r)$. We have two stocks with the same start price $S_0^1=S_0^2=100$ and prices tomorrow:
+    
+    \[
+    S_1^1(\omega)=
+    \begin{cases}
+        110 & \text{if } \omega = \omega_1 \\
+        105 & \text{if } \omega = \omega_2 \\
+        100 & \text{if } \omega = \omega_3
+    \end{cases}
+    \quad \text{and} \quad
+    S_1^2(\omega)=
+    \begin{cases}
+        160 & \text{if } \omega = \omega_1 \\
+        110 & \text{if } \omega = \omega_2 \\
+        0   & \text{if } \omega = \omega_3
+    \end{cases}
+    \]
+    
+    Simple computation shows that for $r=\frac{1}{15} \approx 6.66\%$, there exists a unique risk-neutral pricing measure $P^\ast$ given by:
+    
+    \[
+    P^\ast[\{\omega_1\}] = p_1^\ast = \frac{2}{3}, \quad P^\ast[\{\omega_3\}] = p_3^\ast = \frac{1}{3}, \quad \text{and} \quad P^\ast[\{\omega_2\}] = p_2^\ast = 0
+    \]
+    
+    Now, as a portfolio manager, you face the dilemma of which stock you would choose or what proportion you would allocate to one or the other. If the only rationale underlying your decision process is given in terms of the risk-neutral pricing, there is no difference between the two stocks, and you are indifferent.
+    
+    However, you intuitively see that the first stock is a blue chip, whereas the second one is rather the hot but "risky" kid on the playground—a startup or so. Your decision process would likely be driven by a "risk/reward" analysis in the face of "uncertainty," whatever that means.
+
+
+We make the analysis even simpler with the following second example.
+
+!!! example
+
+    You own 1,000 RMB and have the choice between the following games:
+    
+    1. Pay 1,000 and get immediately:
+
+        \[
+        \begin{cases}
+            2,000 & \text{with probability } 50\% \\
+            0     & \text{otherwise}
+        \end{cases}
+        \]
+
+    2. Pay 1,000 and get immediately:
+    
+        \[
+         \begin{cases}
+             1,200 & \text{with probability } \frac{5}{6} \approx 83.33\% \\
+             0     & \text{otherwise}
+         \end{cases}
+        \]
+
+    3. Pay 1,000 and get immediately:
+      
+        \[
+         \begin{cases}
+             1,300 & \text{with probability } 25\% \\
+             900   & \text{otherwise}
+         \end{cases}
+        \]
+
+    4. Pay 1,000 and get immediately:
+
+        \[
+         \begin{cases}
+             1,100 & \text{with probability } 50\% \\
+             900   & \text{otherwise}
+         \end{cases}
+        \]
+    
+    5. Do nothing and keep your 1,000.
+    
+    All these games have an expected return of 0. However, you would likely have a preference regarding which one is the best. Considering their standard deviations—that is, $E[(X - E[X])^2]^{1/2}$—it holds:
+    
+    \[
+      \begin{aligned}
+          \mathrm{STD}(\text{game 1}) & \approx 1,000, \\
+          \mathrm{STD}(\text{game 2}) & \approx 447.21, \\
+          \mathrm{STD}(\text{game 3}) & \approx 173.21, \\
+          \mathrm{STD}(\text{game 4}) & \approx 100, \\
+          \mathrm{STD}(\text{game 5}) & \approx 0.
+      \end{aligned}
+    \]
+
+
+!!! remark
+
+    Risk perception is a subjective view of how you assess uncertain prospective outcomes.
+    This may differ from one person to another as well as from one context to another.
+    How can we model this fact mathematically?
+
+
+## Two Examples for Risk Assessment Instruments
+
+### Markowitz Mean Variance
+The deviation from the mean appears to be a good indicator of our aversion to uncertainty. This is why Markowitz introduced the following criterion to assess the trade-off between risk and rewards in terms of variance and means.
+
+!!! definition
+
+    Given a square integrable random variable \( X \)—modeling some payoff such as a portfolio strategy, industrial projects, or any management decision—the *Markowitz mean/variance* measure is defined as:
+    
+    \[
+    MV_{\alpha}(X) = E[X] - \frac{\alpha}{2} \text{VAR}(X)
+    \]
+    
+    where:
+    
+    \[
+    \text{VAR}(X) = E\left[(X - E[X])^2\right]
+    \]
+    
+    is the variance of the random variable, and \( \alpha \) is a positive number.
+
+For any value of \( \alpha \), you can check that assessing previous games in terms of mean and variance will rank them, with the largest standard deviation corresponding to the worst game and the smallest standard deviation corresponding to the best game. 
+
+The Markowitz mean-variance approach was a highly successful instrument for finding optimal portfolio strategies.
+It can also be used as a risk assessment measure.
+However, since we are more interested in the downside risks, we consider risk measures defined for the random variable \( L = -X \), where \( X \) represents returns.
+
+!!! definition
+
+    The *Markowitz risk measure* is defined as:
+
+    \[
+      RMV_{\alpha}(L) = E[L] + \frac{\alpha}{2} \text{VAR}(L)
+    \]
+
+    where \( L \) is a square integrable loss profile.
+
+!!! proposition
+
+    The Markowitz risk measure satisfies the following properties:
+
+    1. **Cash-invariance**: For every loss profile \( L \) and \( m \in \mathbb{R} \),
+
+        \[
+          RMV_{\alpha}(L - m) = RMV_{\alpha}(L) - m.
+        \]
+    
+    2. **Convexity**: For any two loss profiles \( L_1, L_2 \) and \( \lambda \in [0, 1] \),
+       
+        \[
+          RMV_{\alpha}(\lambda L_1 + (1 - \lambda)L_2) \leq \lambda RMV_{\alpha}(L_1) + (1 - \lambda)RMV_{\alpha}(L_2) \leq \max \left\{ RMV_{\alpha}(L_1), RMV_{\alpha}(L_2)\right\}.
+        \]
+    
+    3. **Law Invariance**: If two loss profiles \( L_1 \) and \( L_2 \) have the same CDF, then:
+       
+        \[
+          RMV_{\alpha}(L_1) = RMV_{\alpha}(L_2).
+        \]
+    
+  
+
+??? proof 
+
+    1. **Cash-invariance:** For every \( m \in \mathbb{R} \), and loss \( L \), it holds:
+
+        \[
+          \begin{align*}
+             RMV_{\alpha}(L-m) & = E[L-m] + \frac{\alpha}{2} E\left[\left(L-m-E[L-m]\right)^2\right]\\
+                               & = E[L] + \frac{\alpha}{2} E\left[\left(L - E[L]\right)^2\right] - m = RMV_{\alpha}(L) - m
+          \end{align*}
+        \]
+       
+    2. **Convexity:** Let \( 0 \leq \lambda \leq 1 \) and \( L_1 \) and \( L_2 \) be two loss profiles. 
+
+        Since the function \( x \mapsto x^2 \) is convex, it follows that:
+
+        \[
+          \begin{align*}
+             \left(\lambda L_1 + (1-\lambda)L_2 - E[\lambda L_1 + (1-\lambda)L_2]\right)^2 
+              &=\left(\lambda(L_1 - E[L_1]) + (1-\lambda)(L_2 - E[L_2])\right)^2\\
+              &\leq \lambda \left(L_1 - E[L_1]\right)^2 + (1-\lambda)\left(L_2 - E[L_2]\right)^2
+          \end{align*}
+        \]
+       
+        Taking expectation, it follows that:
+       
+        \[
+          \text{VAR}(\lambda L_1 + (1-\lambda)L_2) \leq \lambda \text{VAR}(L_1) + (1-\lambda) \text{VAR}(L_2)
+        \]
+       
+        showing that:
+        
+        \[
+          \begin{align*}
+             RMV_{\alpha}(\lambda L_1 + (1-\lambda)L_2) & = \lambda E[L_1] + (1-\lambda)E[L_2] + \frac{\alpha}{2} \text{VAR}(\lambda L_1 + (1-\lambda)L_2)\\
+              &\leq \lambda\left(E[L_1] + \frac{\alpha}{2} \text{VAR}(L_1)\right) + (1-\lambda)\left(E[L_2] + \frac{\alpha}{2} \text{VAR}(L_2)\right)\\
+              & = \lambda RMV_{\alpha}(L_1) + (1-\lambda)RMV_{\alpha}(L_2)\\
+              & \leq \max \left\{ RMV_{\alpha}(L_1), RMV_{\alpha}(L_2) \right\}
+          \end{align*}
+        \]
+    
+    3. For the last assertion, let \( L_1 \) and \( L_2 \) be such that \( F_{L_1} = F_{L_2} \).
+      It follows that:
+      
+        \[
+        \begin{align*}
+           RMV_{\alpha}(L_1) & = \int_{\mathbb{R}} x dF_{L_1}(x) + \frac{\alpha}{2}\int_{\mathbb{R}} \left[x - \int_{\mathbb{R}}x dF_{L_1}(x)\right]^2 dF_{L_1}(x) \\
+              & = \int_{\mathbb{R}} x dF_{L_2}(x) + \frac{\alpha}{2}\int_{\mathbb{R}} \left[x - \int_{\mathbb{R}}x dF_{L_2}(x)\right]^2 dF_{L_2}(x) \\
+              & = RMV_{\alpha}(L_2)
+        \end{align*}
+        \]
+    
+
+
+### Value at Risk (V@R)
+
+The value at risk (V@R) is a widely used risk assessment measure introduced in the finance industry by JP Morgan around 1995.
+It measures downside risk as follows:
+
+
+!!! definition
+
+    Let \( L \) be a loss profile. The value at risk (\( V@R_{\alpha} \)) with parameter \( 0 < \alpha < 1 \) is defined as:
+
+    \[
+      V@R_{\alpha}(L) = \inf\{m \in \mathbb{R} : P[L > m] \leq \alpha\}.
+    \]
+
+
+This can also be expressed as:
+
+\[
+  \begin{align*}
+    V@R_{\alpha}(L) & = \inf\{m \in \mathbb{R} : P[L > m] \leq \alpha\}\\
+                    & = \inf\{m \in \mathbb{R} : 1-P[L\leq m] \leq \alpha\}\\
+                    & = \inf\{m \in \mathbb{R} : F_L(m) \geq 1-\alpha\}
+  \end{align*}
+\]
+
+where \( F_L(m):= P[L\leq m] \) is the cumulative distribution function (CDF) of \( L \).
+
+
+![Value at Risk](./../../images/var_dark.svg#only-dark)
+![Value at Risk](./../../images/var_white.svg#only-light)
+
+
+!!! note "Note: Quantile Function"
+
+    Note that the CDF $F_L$ is an increasing function from $0$ to $1$.
+    Furthermore, it is right continuous meaning that $F_L(m_n)\downarrow F_L(m)$ for any sequence $m_n \downarrow m$.
+    Indeed, let $A_n = \{L \leq m_n\}$ and $A =\{L\leq m\}$, it follows that $A_1\supseteq A_2 \ldots \supseteq A_n \supseteq \ldots$ with $\cap A_n =A$.
+    As a consequence of the $\sigma$-additivity of the probability measure, it follows that $P[A_n]\downarrow P[A]$.
+
+    Now, if $F_L$ is strictly increasing and continuous, it has an inverse $F_L^{-1}\colon (0, 1)\to \mathbb{R}$ which is also strictly increasing and continuous.
+    Such an inverse is called the quantile of $L$ and denoted by $q_L\colon (0,1)\to \mathbb{R}$.
+    It follows that we can write the value at risk in terms of quantile:
+
+    \[
+      \begin{align*}
+        V@R_{\alpha}(L) & = \inf\{m \in \mathbb{R} : F_L(m) \geq 1-\alpha\}\\
+                        & = \inf\{m \in \mathbb{R} : F^{-1}_L(F_L(m)) \geq F^{-1}_L(1-\alpha)\}\\
+                        & = \inf\{m \in \mathbb{R} : m \geq F^{-1}_L(1-\alpha)\}\\
+                        & = F^{-1}_L(1-\alpha)
+      \end{align*}
+    \]
+    
+    In other terms, $V@R_{\alpha}(L)=q_L(1-\alpha)$ is the $1-\alpha$ quantile of the distribution.
+
+    In the case where $F_L$ is not strictly increasing and continuous, we can still define the so called (right) pseudo-inverse or quantile as
+
+    !!! definition "Definition: Quantile"
+
+        The quantile of the random variable $L$ is defined as
+
+        \[
+        \begin{equation*}
+          \begin{split}
+            q_L \colon (0,1) & \longrightarrow \mathbb{R}\\
+                        s & \longmapsto q_L(\alpha) = \inf\left\{ m \in \mathbb{R}\colon P\left[ L\leq m \right] \geq s\right\}
+          \end{split}
+        \end{equation*}
+        \]
+
+    The quantile is an increasing and right continuous function for which holds
+
+    \[
+      F_L(q_L(s)-) \leq s\leq F_L(q_L(s))  
+    \]
+
+The value at risk indicates the amount of cash or liquidity needed to reduce the loss size so that the probability of making losses exceeds \( \alpha \) is small.
+Typical values for \( \alpha \) are 5%, 1%, or 0.5%, depending on the horizon.
+
+
+
+
+
+!!! example
+
+    Let \( \Omega = \{\omega_1, \omega_2, \omega_3, \omega_4\} \) with probabilities \( p = (0.7\%, 3.3\%, 46\%, 50\%) \), and let \( L \) be a loss profile defined as:
+    
+    \[
+    L(\omega) =
+    \begin{cases}
+    10,000 & \text{if } \omega = \omega_1, \\
+    -50    & \text{if } \omega = \omega_2, \\
+    -200   & \text{if } \omega = \omega_3, \\
+    -1,000 & \text{if } \omega = \omega_4.
+    \end{cases}
+    \]
+    
+    The corresponding CDF \( F_L(m) \) is:
+    
+    \[
+    F_L(m) =
+    \begin{cases}
+    0       & \text{if } m < -1,000, \\
+    50\%    & \text{if } -1,000 \leq m < -200, \\
+    96\%    & \text{if } -200 \leq m < -50, \\
+    99.3\%  & \text{if } -50 \leq m < 10,000, \\
+    1       & \text{if } m \geq 10,000.
+    \end{cases}
+    \]
+    
+    From this, the quantile function is:
+    
+    \[
+    q_L(x) =
+    \begin{cases}
+    -1,000 & \text{if } 0 < x \leq 50\%, \\
+    -200   & \text{if } 50\% < x \leq 96\%, \\
+    -50    & \text{if } 96\% < x \leq 99.3\%, \\
+    10,000 & \text{if } 99.3\% < x \leq 1.
+    \end{cases}
+    \]
+    
+    Thus:
+    \[
+    V@R_{5\%} = q_L(95\%) = -200, \quad V@R_{1\%} = q_L(99\%) = -50, \quad V@R_{0.5\%} = q_L(99.5\%) = 10,000.
+    \]
+
+!!! note "Note: Practical Computation of Value at Risk"
+
+    Unlike risk mean variance that only implies the computation of expectations (analytical or with monte carlo for instance), the case of V@R is slightly more complex.
+    Indeed, even if a random variable does have a probability density function, there does not exist in general an analytical form for the quantile function.
+    Therefore in case of a strictly increasing and continuous CDF, to compute the Value at risk you need to invert the function $m \mapsto F_L(m)$.
+    Inverting a function implies finding the solution $m^\ast$ to the equation
+
+    \[
+      F_L(m^\ast) = = s 
+    \]
+
+    which is a classical root finding.
+    Every scientific library has methods for (either newton methods or bisecant of advanced mixed therefore like Brentq).
+
+    Note however that we are trying to find high quantiles (0.99 or 0.999) for the CDF, which lies very close to the boundary of the inverse.
+    The problem is therefore quite difficult as the derivative there starts to be very close to $0$ in the limits of computer accuracy.
+    There exists however in most scientific libraries having statistical functions, predefined way to compute quantile which are heavily optimized.
+
+    We illustrate this in the following using `python` and `scipy.optimize` and `scipy.stats`.
+
+    ```python title="Computation of value at risk"
+    # import libraries
+    import numpy as np
+    from scipy.stats import norm, t             # Normal and Student distribution
+    from scipy.optimize import root, brentq     # root->newton method, brentq->bissecant flavor
+    import plotly.graph_objs as go              # professional but easy plotting
+    
+    # Straightforward quantile computation implementation
+    def quantile(cdf, s):
+      # definition of the root function(1) 
+      def fun(m):
+        result = cdf(m) - s
+        return result
+
+      # return the root(2)
+      result = root(fun, 0)
+      return result.x[0]
+
+    # Define two random variables
+    X = norm()      # standard normal
+    Y = t(df = 2)   # student with 2 as degree of freedom
+
+    # plot the cdf of both
+
+    x = np.linespace(-4, 4, 100)
+    y1 = X.cdf(x)
+    y2 = Y.cdf(x)
+
+    fig = go.Figure()
+    fig.add_scatter(x=x, y=y1, name="normal distribution")
+    fig.add_scatter(x=x, y=y2, name="student distribution")
+    fig.update_layout(title = 'CDF of normal and student')
+    fig.show()
+
+    # compute the var 0.01 and 0.01 for each
+
+    print(f"""
+    1% V@R for Normal:\t{quantile(X.cdf, 0.99)}
+    0.01% V@R for Normal:\t{quantile(X.cdf, 0.999)}
+    1% V@R for Student:\t{quantile(Y.cdf, 0.99)}
+    0.01% V@R for Student:\t{quantile(Y.cdf, 0.999)}
+    """)
+
+
+    # using the pre programmed `ppf` functions
+    print(f"""
+    1% V@R for Normal:\t{X.ppf(0.99)}
+    0.01% V@R for Normal:\t{X.ppf(0.999)}
+    1% V@R for Student:\t{Y.ppf(0.99)}
+    0.01% V@R for Student:\t{Y.ppf(0.999)}
+    """)
+
+    # You can compare the speed between your implementation and the pre programmed using %timeit
+    ```
+    {.annotate }
+
+    1.  Find `m` such that `F(m) = s` is equivalent to finding `m` such that `F(m) - s = 0` which is the usual implementation.
+    2.  We use here the Newton variant of root optimization problem. It only requires a start point and is usually fast. 
+        However it might not converge if the derivative is quite close to `0` so it might not always be adequate.
+        Using `brentq`, as a bissecant type, requires to provide two bounds `a<b` within which that root shall be found. In particular it should hold that `fun(a)` has a different sign as `fun(b)`.
+        Both have advantages and inconvenience.
+
+find the root of the following function
+
+    \[ 
+      \begin{equation*}
+	      m\mapsto F_{L}(m)-(1-\alpha)
+      \end{equation*}
+    \]
+
+    for which every scientific library has methods for.
+
+
