@@ -271,7 +271,7 @@ where \( F_L(m):= P[L\leq m] \) is the cumulative distribution function (CDF) of
     
     In other terms, $V@R_{\alpha}(L)=q_L(1-\alpha)$ is the $1-\alpha$ quantile of the distribution.
 
-    In the case where $F_L$ is not strictly increasing and continuous, we can still define the so called (right) pseudo-inverse or quantile as
+    In the case where $F_L$ is not strictly increasing and continuous, we can still define the so called (left) pseudo-inverse or quantile as
 
     !!! definition "Definition: Quantile"
 
@@ -286,7 +286,7 @@ where \( F_L(m):= P[L\leq m] \) is the cumulative distribution function (CDF) of
         \end{equation*}
         \]
 
-    The quantile is an increasing and right continuous function for which holds
+    The quantile is an increasing and left continuous function for which holds
 
     \[
       F_L(q_L(s)-) \leq s\leq F_L(q_L(s))  
@@ -482,6 +482,9 @@ As for mean-variance, value at risk also fulfills some properties
     
     3. **Law Invariance:** This follows immediately since the value at risk depends only on the CDF.
     
+
+
+
 ## Sound Properties?
 
 Both risk assessement do make sense and have a certain appeal.
@@ -514,5 +517,102 @@ Let us discuss some of the properties they fulfill.
 | Monotonicity | :material-close:|:material-check-all: |
 | Diversification |:material-check-all: | :material-close: | 
 
+
+
+!!! warning "Warning: Value at Risk might lead to Concentration"
+
+    The Value at Risk goes in some cases against diversification.
+    The main reason is that the quantile is just a single point in the CDF of the loss distribution and can not account for the whole risk contained in the tail of the distribution.
+
+    The following single example illustrate the concentration in the tail.
+
+    In the first situation, you lend $1000$ RMB to a friend with payment back in one year with $4%$ interest.
+    If the friend repays the loan you make a gain of $40$ RMB, if the friend goes away your make a loss of $1000$ RMB.
+    We assume that the friend will run away with a probability of $4\%$.
+    In terms of loss it, it reads as follows 
+
+    \[
+        \begin{equation*}
+            L = 
+            \begin{cases}
+                -40 & \text{with probability }96\% \\
+                1000 & \text{with probability }4\%
+            \end{cases}
+        \end{equation*}
+    \]
+
+
+    which leads to the following CDF and quantile
+
+    \[
+        \begin{align*}
+            F_L(m) & = \begin{cases}
+                0 & \text{for }m< -40\\
+                96\% & \text{for }-40 \leq m < 1000 \\
+                100\% & \text{for } m \geq 1000
+            \end{cases}
+            &
+            q_L(s) & = \begin{cases}
+                -40 & \text{for } 0<s \leq 96\%\\
+                1000 & \text{for } s > 96\%
+            \end{cases}
+        \end{align*}
+    \]
+
+    which in other terms yields a value at risk at $5\%$ level of
+
+    \[
+        V@R_{5\%}(L) = q_L(95\%) = -40 
+    \]
+
+
+    Now in view of the potential default of this friend, instead of lending $1000$ to one, you diversify your exposure by lending $500$ to two different (supposedly independent) friends.
+    In terms of loss it gives
+
+    \[
+        \begin{equation*}
+            L = 
+            \begin{cases}
+                -40 & \text{with probability }92.16\% \\
+                480 & \text{with probability } 7.68\% \\
+                1000 & \text{with probability }0.16\%
+            \end{cases}
+        \end{equation*}
+    \]
+
+    showing that the probability of large losses reduced radically to $0.16\%$ in trade off for medium loss of 480 with a $7.68\%$ probabliity.
+
+    This leads to the following CDF and quantile
+
+    \[
+        \begin{align*}
+            F_L(m) & = \begin{cases}
+                0 & \text{for }m< -40\\
+                92.16\% & \text{for } -40 \leq m < 480 \\
+                99.84\% & \text{for } 480 \leq m < 1000 \\
+                100\% & \text{for } m \geq 1000
+            \end{cases}
+            &
+            q_L(s) & = \begin{cases}
+                -40 & \text{for } 0<s \leq 92.16\%\\
+                480 & \text{for } 92.16\% < s \leq 99.84 \%\\
+                1000 & \text{for } s > 99.84\%
+            \end{cases}
+        \end{align*}
+    \]
+
+    which yields a value at risk at $5\%$ level of
+
+    \[
+        V@R_{5\%}(L) = q_L(95\%) = 480
+    \]
+
+    In other terms, the value at risk jumps from $-40$ to $480$ while diversifying our investment which goes against what is expected from a risk assessment measure.
+
+    The main reason is that the losses in the non diversified situation are all concentrated in the tail of the distribution beyond the quantile level choosen.
+    In other terms, value at risk is *blind* to the loss size (or tail of the distribution) beyond the choosen quantile level.
+
+
+Even if those two instruments have intuitively a certain appeal as assessment of risk (and they are useful in their own rights), it turns out that a closer look shows that both are do violate one or another fundamental properties we are expecting from a risk measure.
 
 

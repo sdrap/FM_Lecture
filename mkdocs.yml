@@ -1,5 +1,5 @@
 site_name: Financial Mathematics
-site_url: http://127.0.0.1:8000/
+# site_url: http://127.0.0.1:8000/
 
 theme:
   name: material
@@ -48,8 +48,10 @@ nav:
           - Derivative Securities: lecture/01-One-Period/013-derivative-securities.md
       - Risk Management:
           - What is Risk: lecture/02-risk-management/021-what-is-risk.md
+          - Risk Preferences and Measures: lecture/02-risk-management/022-risk-preferences.md
+
   # - Material:
-  #     - Setup: material/material.md
+  #     - Project I: material/project01.md
   #     - Homework 01: material/hw01.md
   #     - Homework 02: material/hw02.md
   # - Homework 03: material/hw03.md

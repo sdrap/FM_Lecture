@@ -461,7 +461,7 @@ However, an immediate consequence of which is the so called **Law of One Price**
       & = E^{P^\ast}\left[ \frac{\bar{V}_1}{1+r} \right]\\
       & = E^{P^\ast}\left[ \frac{\tilde{V}_1}{1+r} \right]\\
       & = E^{P^\ast}\left[  \tilde{V}_0 + \tilde{\boldsymbol{\eta}}\cdot \Delta \boldsymbol{X}_1\right]\\
-      & = \tilde{V}_1
+      & = \tilde{V}_0
     \end{align*}
     $$
 

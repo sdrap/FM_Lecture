@@ -265,7 +265,7 @@ We are now in position to show the first proposition regarding the super- and su
 
 ??? proof
 
-    Let $x$ be a super-hedging price and $y$ be a subhedgin price.
+    Let $x$ be a super-hedging price and $y$ be a sub-hedging price.
     By definition, there exists smart strategies $\boldsymbol{\eta}$ and $\boldsymbol{\nu}$ in $\mathbb{R}^d$ such that
 
     \[
