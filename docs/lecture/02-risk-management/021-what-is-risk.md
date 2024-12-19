@@ -220,6 +220,7 @@ However, since we are more interested in the downside risks, we consider risk me
 ### Value at Risk (V@R)
 
 The value at risk (V@R) is a widely used risk assessment measure introduced in the finance industry by JP Morgan around 1995.
+However as an instrument for measuring risk, it has been used for centuries in insurrance industry and turns out to be a very well known mathematical concept.
 It measures downside risk as follows:
 
 
@@ -343,25 +344,23 @@ Typical values for \( \alpha \) are 5%, 1%, or 0.5%, depending on the horizon.
     V@R_{5\%} = q_L(95\%) = -200, \quad V@R_{1\%} = q_L(99\%) = -50, \quad V@R_{0.5\%} = q_L(99.5\%) = 10,000.
     \]
 
+
 !!! note "Note: Practical Computation of Value at Risk"
 
-    Unlike risk mean variance that only implies the computation of expectations (analytical or with monte carlo for instance), the case of V@R is slightly more complex.
-    Indeed, even if a random variable does have a probability density function, there does not exist in general an analytical form for the quantile function.
-    Therefore in case of a strictly increasing and continuous CDF, to compute the Value at risk you need to invert the function $m \mapsto F_L(m)$.
-    Inverting a function implies finding the solution $m^\ast$ to the equation
+    Unlike mean-variance risk measures, which involve computing expectations (analytical or via Monte Carlo methods, for instance), the computation of Value at Risk (VaR) is slightly more complex. 
+    Even when a random variable has a probability density function, there is generally no analytical form for its quantile function. In cases where the cumulative distribution function (CDF) is strictly increasing and continuous, computing VaR requires inverting the function \( m \mapsto F_L(m) \). This involves solving the equation:
 
     \[
-      F_L(m^\ast) = = s 
+      F_L(m^\ast) = s
     \]
 
-    which is a classical root finding.
-    Every scientific library has methods for (either newton methods or bisecant of advanced mixed therefore like Brentq).
+    where \( m^\ast \) is the quantile we are seeking. This is a classical root-finding problem.
 
-    Note however that we are trying to find high quantiles (0.99 or 0.999) for the CDF, which lies very close to the boundary of the inverse.
-    The problem is therefore quite difficult as the derivative there starts to be very close to $0$ in the limits of computer accuracy.
-    There exists however in most scientific libraries having statistical functions, predefined way to compute quantile which are heavily optimized.
+    Most scientific libraries provide methods for root finding, such as Newton's method, the secant method, or more advanced mixed approaches like Brent's method. 
+    It is important to note, however, that VaR often focuses on high quantiles (e.g., 0.99 or 0.999) of the CDF, which lie near the boundary of the inverse. This makes the problem particularly challenging, as the derivative of the CDF approaches zero near these limits, testing the bounds of numerical precision. 
+    Fortunately, most scientific libraries with statistical functions provide predefined and highly optimized methods for quantile computation. 
 
-    We illustrate this in the following using `python` and `scipy.optimize` and `scipy.stats`.
+    Below, we illustrate this using Python, specifically with `scipy.optimize` and `scipy.stats`.
 
     ```python title="Computation of value at risk"
     # import libraries
@@ -484,135 +483,114 @@ As for mean-variance, value at risk also fulfills some properties
     
 
 
-
 ## Sound Properties?
 
-Both risk assessement do make sense and have a certain appeal.
-Let us discuss some of the properties they fulfill.
+Both risk assessments make sense and have a certain appeal. Let us discuss some of the properties they fulfill:
 
-* **Cash Invariance:** given a risk assessment instrument $L \mapsto R(L)$, being cash invariant means that $R(L-m) = R(L) - m$.
-    This is a property that economists as well as regulator do like as it confers a certain monetary meaning to the risk assessment.
+* **Cash Invariance:** Given a risk assessment instrument \( L \mapsto R(L) \), being cash invariant means that \( R(L - m) = R(L) - m \).
+    This property is appreciated by economists and regulators as it confers a clear monetary interpretation to risk assessment.
+    Regulators typically require financial institutions to maintain their total risk below zero.
+    For a financial institution with a loss exposure \( L \), the question is how much liquidity (or cash) must be held to reduce the overall risk to below zero.
+    With cash \( m \) and risky exposure \( L \), the resulting loss profile is \( L - m \), with a risk equal to \( R(L - m) \).
+    A risk assessment below zero implies that \( m \geq R(L) \). In other words, the minimal cash requirement to make the risky exposure acceptable is \( m = R(L) \).
 
-    Indeed, usually regulators wants financial institutions to keep their total risk below $0$.
-    Now as a financial institution, I have a loss exposure $L$ in financial assets.
-    The question is how much liquidiy (or cash) shall be in the bank account to make the overall risk lower than $0$.
-    Together with cash $m$ and risky exposure $L$, the resulting loss profile is $L-m$ for which the risk is equal to $R(L-m)$.
-    A risk acceptance being smaller than $0$ means that $m\geq R(L)$.
-    In other terms, the minimal cash requirement to make the risky exposure acceptable in terms of liquidity is $m = R(L)$.
+* **Law Invariance:** Law invariance is important because, even though we work with random variables, in practice we observe only their realizations and approximate their CDF.
+    Hence, a risk assessment instrument should depend solely on the CDF of the loss profile.
 
-* **Law Invariance:**
+* **Monotonicity:** Monotonicity means that if the loss profile of one position is always greater than another, i.e., it results in higher losses in all scenarios, then its risk should also be higher.
 
-    The law invariance is important in so far that even if we consider random variables, in practive we can only observe the realization of which and therefore an approximation of the CDF.
-    Hence a risk assessment instrument shall only depend on the CDF of the loss profile.
-
-* **Monotonicity:** Monotonicity means that whenever the loss profile of one position is in any case larger than another position, i.e. loose more money in any cases, then its risk should be higher.
-
-* **Diversification:** (here convexity) means that diversifying between to risky assets (a convex combination), the resulting risk is going to be lower than the worse of the other two risks.
+* **Diversification (Convexity):** Diversification implies that combining two risky assets (a convex combination) should result in a risk lower than the worst of the two individual risks.
 
 
-| Property | $MVR_{\alpha}$ | $V@R_{\alpha}$ |
-|:---------|:--------------:|:--------------:|
+| Property        | \( MVR_{\alpha} \) | \( V@R_{\alpha} \) |
+|:----------------|:------------------:|:------------------:|
 | Cash Invariance | :material-check-all: | :material-check-all: |
-| Law Invariance |:material-check-all: | :material-check-all: |
-| Monotonicity | :material-close:|:material-check-all: |
-| Diversification |:material-check-all: | :material-close: | 
-
-
+| Law Invariance  | :material-check-all: | :material-check-all: |
+| Monotonicity    | :material-close:    | :material-check-all: |
+| Diversification | :material-check-all: | :material-close:    |
 
 !!! warning "Warning: Value at Risk might lead to Concentration"
 
-    The Value at Risk goes in some cases against diversification.
-    The main reason is that the quantile is just a single point in the CDF of the loss distribution and can not account for the whole risk contained in the tail of the distribution.
+    Value at Risk (VaR) can, in some cases, counteract diversification.
+    The primary reason is that the quantile is just a single point on the CDF of the loss distribution and does not account for the full risk in the tail.
+    The following example illustrates this concentration issue:
 
-    The following single example illustrate the concentration in the tail.
+    In the first scenario, you lend \( 1000 \) RMB to a friend, expecting repayment in one year with \( 4\% \) interest.  
+    - If the friend repays the loan, you gain \( 40 \) RMB.  
+    - If the friend defaults, you lose \( 1000 \) RMB.  
+    - Assume the probability of default is \( 4\% \).  
 
-    In the first situation, you lend $1000$ RMB to a friend with payment back in one year with $4%$ interest.
-    If the friend repays the loan you make a gain of $40$ RMB, if the friend goes away your make a loss of $1000$ RMB.
-    We assume that the friend will run away with a probability of $4\%$.
-    In terms of loss it, it reads as follows 
-
+    The loss profile can be represented as:  
+    
     \[
-        \begin{equation*}
-            L = 
-            \begin{cases}
-                -40 & \text{with probability }96\% \\
-                1000 & \text{with probability }4\%
-            \end{cases}
-        \end{equation*}
+        L = 
+        \begin{cases}
+            -40 & \text{with probability } 96\% \\
+            1000 & \text{with probability } 4\%
+        \end{cases}
     \]
 
-
-    which leads to the following CDF and quantile
-
+    This results in the following CDF and quantile function:  
+    
     \[
         \begin{align*}
             F_L(m) & = \begin{cases}
-                0 & \text{for }m< -40\\
-                96\% & \text{for }-40 \leq m < 1000 \\
+                0 & \text{for } m < -40 \\
+                96\% & \text{for } -40 \leq m < 1000 \\
                 100\% & \text{for } m \geq 1000
-            \end{cases}
-            &
+            \end{cases} \\
             q_L(s) & = \begin{cases}
-                -40 & \text{for } 0<s \leq 96\%\\
+                -40 & \text{for } 0 < s \leq 96\% \\
                 1000 & \text{for } s > 96\%
             \end{cases}
         \end{align*}
     \]
 
-    which in other terms yields a value at risk at $5\%$ level of
-
+    The Value at Risk at the \( 5\% \) level is:  
+    
     \[
-        V@R_{5\%}(L) = q_L(95\%) = -40 
+        V@R_{5\%}(L) = q_L(95\%) = -40
     \]
 
-
-    Now in view of the potential default of this friend, instead of lending $1000$ to one, you diversify your exposure by lending $500$ to two different (supposedly independent) friends.
-    In terms of loss it gives
-
+    Now, consider diversifying your exposure by lending \( 500 \) RMB to two independent friends:  
+    
     \[
-        \begin{equation*}
-            L = 
-            \begin{cases}
-                -40 & \text{with probability }92.16\% \\
-                480 & \text{with probability } 7.68\% \\
-                1000 & \text{with probability }0.16\%
-            \end{cases}
-        \end{equation*}
+        L = 
+        \begin{cases}
+            -40 & \text{with probability } 92.16\% \\
+            480 & \text{with probability } 7.68\% \\
+            1000 & \text{with probability } 0.16\%
+        \end{cases}
     \]
 
-    showing that the probability of large losses reduced radically to $0.16\%$ in trade off for medium loss of 480 with a $7.68\%$ probabliity.
+    This diversification reduces the probability of large losses to \( 0.16\% \), but introduces a medium loss of \( 480 \) RMB with a \( 7.68\% \) probability.  
 
-    This leads to the following CDF and quantile
-
+    The CDF and quantile function for this case are:  
+    
     \[
         \begin{align*}
             F_L(m) & = \begin{cases}
-                0 & \text{for }m< -40\\
+                0 & \text{for } m < -40 \\
                 92.16\% & \text{for } -40 \leq m < 480 \\
                 99.84\% & \text{for } 480 \leq m < 1000 \\
                 100\% & \text{for } m \geq 1000
-            \end{cases}
-            &
+            \end{cases} \\
             q_L(s) & = \begin{cases}
-                -40 & \text{for } 0<s \leq 92.16\%\\
-                480 & \text{for } 92.16\% < s \leq 99.84 \%\\
+                -40 & \text{for } 0 < s \leq 92.16\% \\
+                480 & \text{for } 92.16\% < s \leq 99.84\% \\
                 1000 & \text{for } s > 99.84\%
             \end{cases}
         \end{align*}
     \]
 
-    which yields a value at risk at $5\%$ level of
-
+    The Value at Risk at the \( 5\% \) level is:  
+    
     \[
         V@R_{5\%}(L) = q_L(95\%) = 480
     \]
 
-    In other terms, the value at risk jumps from $-40$ to $480$ while diversifying our investment which goes against what is expected from a risk assessment measure.
+    In this case, the Value at Risk increases from \( -40 \) to \( 480 \), contradicting the expectation that diversification reduces risk.
+    The primary reason is that, in the non-diversified scenario, all potential losses are concentrated in the tail of the distribution beyond the chosen quantile. In other words, Value at Risk is *blind* to the magnitude of losses beyond the selected quantile level.
 
-    The main reason is that the losses in the non diversified situation are all concentrated in the tail of the distribution beyond the quantile level choosen.
-    In other terms, value at risk is *blind* to the loss size (or tail of the distribution) beyond the choosen quantile level.
-
-
-Even if those two instruments have intuitively a certain appeal as assessment of risk (and they are useful in their own rights), it turns out that a closer look shows that both are do violate one or another fundamental properties we are expecting from a risk measure.
-
+Even though both instruments (mean-variance risk and Value at Risk) have intuitive appeal and practical applications, closer scrutiny reveals that each violates one or more fundamental properties expected of a robust risk measure.
 
