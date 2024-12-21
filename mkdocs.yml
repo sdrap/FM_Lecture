@@ -3,6 +3,7 @@ site_name: Financial Mathematics
 
 theme:
   name: material
+  custom_dir: overrides/
   features:
     - content.tabs.link
     - content.code.copy
@@ -51,14 +52,15 @@ nav:
           - Risk Preferences and Measures: lecture/02-risk-management/022-risk-preferences.md
           - Expected Shortfall: lecture/02-risk-management/023-oce.md
 
-  # - Material:
-  #     - Project I: material/project01.md
+  - Math Add On:
+      - Probability: material/probability.md
+      - Processes: material/stochastic.md
   #     - Homework 01: material/hw01.md
   #     - Homework 02: material/hw02.md
-  # - Homework 03: material/hw03.md
-  #     - Homework 04: material/hw04.md
-  #     - Final Report: material/final.md
-  #     # - Simple Ex 01: material/ex01.md
+  - Exercises: 
+      - One Period Model: material/ex01.md
+      - Risk Management: material/ex02.md
+      - Probability and Stochastic Processes: material/ex_math.md 
 
 extra_css:
   - stylesheets/extra.css
@@ -78,6 +80,9 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      options:
+        custom_icons:
+          - overrides/.icons
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
