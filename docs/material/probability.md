@@ -573,7 +573,48 @@ The proof of which is easy and left to you.
     1. If \(X\) is positive, then \(E[X]>0\) if and only if \(P[X>0] >0\).  
     2. If \(X\) is positive, then \(E[X] = 0\) if and only if \(P[X = 0]=1\).  
 
-We can now define the expectation of general random positive random variables as follows
+We can now define the expectation of an arbitrary positive random random variable.
+The idea is to approximate from below this random variable by simple ones and take the limit.
+
+<div class = "grid cards" markdown>
+
+- __First Approximation__
+
+    ----
+    
+    ![Expectation 1](./../../images/expectation1_dark.svg#only-dark){align = right}
+    ![Expectation 1](./../../images/expectation1_white.svg#only-light){ align = right}
+
+- __Second Approximation__
+
+    ---
+    
+    ![Expectation 2](./../../images/expectation2_dark.svg#only-dark){align = right}
+    ![Expectation 2](./../../images/expectation2_white.svg#only-light){ align = right}
+
+</div>
+
+
+??? note
+
+    Though the definition of the expectation does not implies the explicit construction of a sequence approximating, it is however possible to formalize the idea in the picture.
+
+    Given a random variable $X$, the strategy is as follows:
+    For every natural number $n$, divide the ever growing vertical interval $[0, n)$ into $2^n$ sub intervals $\left[k \frac{n}{2^Nn}, (k+1)\frac{n}{2^n}\right)$ for $k=0, \ldots, 2^n-1$.
+    Define now
+    
+    \[
+      \alpha_k^n = k \frac{N}{2^n} \quad \text{and}\quad A_k^n = \left\{ k\frac{N}{2^n} \leq X < (k+1)\frac{n}{2^N} \right\}
+    \]
+
+    It follows that the sequence $(X_n)$ of simple random variables defined as
+
+    \[
+        X_n = \sum_{k=0}^{2^N-1} \alpha_k^n 1_{A_k^n}
+    \]
+
+    is increasing and converges to $X$.
+
 
 !!! definition "Definition: Expectation 1.5"
 
@@ -725,5 +766,270 @@ It tells under which conditions it is possible to swap limit and expectation.
         \]
 
         In other terms, the expectation of $X$ boils down to the scalar product of the probability vector $\boldsymbol{p}$ with the vector of values $\boldsymbol{x}$ of the random variable.
+
+## Measure Change
+
+The concept of the expectation of a random variable \( E[X] \) depends, by definition, on the probability measure \( P \).
+We should therefore write \( E^P[X] \) to signify this dependence.
+If, on the same measurable space \( (\Omega, \mathcal{F}) \), we are given another probability \( Q \), the question arises: how is \( E^P[X] \) related to \( E^Q[X] \)?
+
+!!! remark
+    Before diving into this question, let us first see how, starting from a probability \( P \), we can define a new probability \( Q \).
+    Suppose we are given a random variable \( Z \) such that:
+    
+    1. \( Z \) is positive.
+    2. \( E^P[Z] = 1 \).
+    
+    We can define the function:
+    
+    \[
+    \begin{aligned}
+        Q \colon \mathcal{F} & \longrightarrow [0,1] \\
+          A & \longmapsto Q[A] = E^P[Z \cdot 1_A]
+    \end{aligned}
+    \]
+    
+    This function, for any event \( A \), returns the expectation of \( Z \) over \( A \).
+    It turns out that this function, under the assumptions on \( Z \), defines a new probability measure.  
+    Specifically:
+    
+    - \( Q[\emptyset] = E^P[Z \cdot 1_\emptyset] = E^P[0] = 0 \),
+    - \( Q[\Omega] = E^P[Z \cdot 1_\Omega] = E^P[Z] = 1 \).
+
+    Additivity also holds: for any two disjoint events \( A \) and \( B \), \( 1_{A \cup B} = 1_A + 1_B \).
+    Hence:
+    
+    \[
+    Q[A \cup B] = E^P[Z \cdot 1_{A \cup B}] = E^P[Z \cdot 1_A] + E^P[Z \cdot 1_B] = Q[A] + Q[B].
+    \]
+
+    ??? warning
+        To fully define \( Q \) as a probability measure, you must also check \(\sigma\)-additivity.
+        That is, for every sequence \( (A_n) \) of pairwise disjoint events, it must hold:
+
+        \[
+        Q\left[\bigcup A_n\right] = \sum Q[A_n].
+        \]
+
+        Define the random variables \( X_n = Z \cdot 1_{\cup_{k \leq n} A_k} = Z \cdot \left( \sum_{k \leq n} 1_{A_k} \right) \) and let \( X = Z \cdot 1_{\cup A_n} \).
+        Since \( |X_n| \leq Z \), where \( Z \) is integrable, dominated convergence implies:
+
+        \[
+        \lim E^P[X_n] = E^P[X].
+        \]
+
+        Meanwhile:
+
+        \[
+        E^P[X_n] = \sum_{k \leq n} E^P[Z \cdot 1_{A_k}] = \sum_{k \leq n} Q[A_k],
+        \]
+
+        and \( E^P[X] = Q\left[\bigcup A_n\right] \).
+
+    Hence, any positive random variable \( Z \) with expectation 1 under \( P \) defines a new probability measure \( Q \).
+
+    Furthermore, for any bounded random variable \( X \), it holds that:
+    \[
+    E^Q[X] = E^P[Z \cdot X].
+    \]
+
+    To see this, consider a simple random variable \( X = \sum \alpha_k \cdot 1_{A_k} \):
+
+    \[
+    \begin{aligned}
+        E^Q[X] &= \sum \alpha_k Q[A_k] \\
+               &= \sum \alpha_k E^P[Z \cdot 1_{A_k}] \\
+               &= E^P[Z \cdot X].
+    \end{aligned}
+    \]
+
+    The general case follows by approximating \( X \) with simple random variables.
+
+    Additionally, \( Q \) is **dominated** by \( P \) in the sense that \( P[A] = 0 \) implies \( Q[A] = E^P[Z \cdot 1_A] = 0 \).
+
+From this, we see that a positive random variable \( Z \) with expectation 1 allows us to define a new probability \( Q \), dominated by \( P \), and connects expectations under \( Q \) to those under \( P \).
+The challenging and powerful task is to establish the reciprocal relationship.
+The key lies in the concepts of absolute continuity or equivalence between probability measures, and the **Radon-Nikodym Theorem**.
+
+!!! definition
+    Given two probability measures \( P \) and \( Q \), we define:
+
+    1. \( Q \) is **absolutely continuous** with respect to \( P \) (\( Q \ll P \)) if:
+
+        \[
+        P[A] = 0 \quad \text{implies} \quad Q[A] = 0.
+        \]
+
+    2. \( Q \) is **equivalent** to \( P \) (\( Q \sim P \)) if both \( Q \ll P \) and \( P \ll Q \), i.e.:
+
+        \[
+        P[A] = 0 \quad \text{if and only if} \quad Q[A] = 0.
+        \]
+
+By definition:
+
+\[
+Q \ll P \quad \text{if and only if} \quad P[A] = 1 \text{ implies }Q[A] = 1,
+\]
+
+or equivalently:
+
+\[
+Q \ll P \quad \text{if and only if} \quad Q[A] > 0 \text{ implies }P[A] > 0.
+\]
+
+In the equivalent case:
+
+\[
+Q \sim P \quad \text{if and only if} \quad P[A] = 1 \text{if and only if } Q[A] = 1,
+\]
+
+or equivalently:
+
+\[
+Q \sim P \quad \text{if and only if} \quad P[A] > 0 \text{ if and only if } Q[A] > 0.
+\]
+
+Absolute continuity implies that events unlikely under \( P \) are also unlikely under \( Q \).
+Equivalence means that \( P \) and \( Q \) agree on which sets are unlikely.
+
+!!! theorem "Radon-Nikodym Theorem"
+    On a measurable space \( (\Omega, \mathcal{F}) \), if a probability measure \( Q \) is absolutely continuous with respect to another probability measure \( P \), there exists a (\( P \)-almost surely) unique random variable \( Z \) such that:
+
+    \[
+    \begin{aligned}
+        Z &\geq 0, \\
+        E^P[Z] &= 1, \\
+        E^Q[X] &= E^P[Z \cdot X] \quad \text{ for any bounded random variable } X.
+    \end{aligned}
+    \]
+
+    This unique random variable is called the **density** of \( Q \) with respect to \( P \) and is denoted \( \frac{dQ}{dP} \).
+
+The notation \( \frac{dQ}{dP} \) is cosmetic; it does not represent a literal ratio.
+It simplifies expressions such as:
+
+\[
+E^P\left[ \frac{dQ}{dP} \cdot X \right] = \int X \frac{dQ}{dP} \, dP = \int X \, dQ = E^Q[X].
+\]
+
+This theorem underpins many results in stochastic processes and finance, such as the Black-Scholes-Merton formula.
+However, proving it requires knowledge of functional analysis, which is beyond this lecture's scope.
+The proof is simpler in a finite state space.
+
+!!! exercise
+    Let \( \Omega = \{\omega_1, \ldots, \omega_n\} \) be a finite state space with \( \sigma \)-algebra \( \mathcal{F} = 2^\Omega \).
+    Suppose \( P \) is a probability measure given by \( \boldsymbol{p} = (p_1, \ldots, p_n) \), where \( P[\{\omega_i\}] = p_i > 0 \) and \( \sum p_i = 1 \).
+    Let \( Q \) be another probability measure on \( (\Omega, \mathcal{F}) \) given by \( \boldsymbol{q} = (q_1, \ldots, q_n) \), where \( Q[\{\omega_i\}] = q_i \geq 0 \) and \( \sum q_i = 1 \).
+
+    Since \( P[A] = 0 \) implies \( A = \emptyset \), it follows that \( Q[A] = Q[\emptyset] = 0 \).  
+    Hence, \( Q \ll P \).
+
+    Find a random variable \( \frac{dQ}{dP} \colon \Omega \to \mathbb{R} \) such that \( \frac{dQ}{dP} \geq 0 \), \( E^P\left[\frac{dQ}{dP}\right] = 1 \), and:
+
+    \[
+    E^Q[X] = E^P\left[\frac{dQ}{dP} \cdot X\right]
+    \]
+
+    for every random variable \( X \colon \Omega \to \mathbb{R} \).
+    Show that \( \frac{dQ}{dP} \) is unique.
+
+    In this finite setting, \( \frac{dQ}{dP} \) can be represented by a vector \( \boldsymbol{z} = (z_1, \ldots, z_n) \) with \( z_i = \frac{dQ}{dP}(\omega_i) \).
+    The conditions reduce to finding \( \boldsymbol{z} \) such that \( z_i \geq 0 \), \( \sum z_i p_i = 1 \), and for every vector \( \boldsymbol{x} = (x_1, \ldots, x_n) \):
+
+    \[
+    \sum x_i q_i = E^Q[X] = E^P\left[\frac{dQ}{dP} \cdot X\right] = \sum x_i z_i p_i.
+    \]
+
+
+## Independence
+
+A fundamental concept in probability, distinct from general measure theory, is **independence**.
+Intuitively, two events \( A \) and \( B \) are independent if their probability of joint occurrence equals the product of their respective probabilities.
+
+This concept can be extended to random variables and families of events, with significant implications for results in probability theory.
+
+!!! definition
+
+    Given a probability space \( (\Omega, \mathcal{F}, P) \):
+
+    1. Two events \( A \) and \( B \) are called independent if:
+
+        \[
+        P[A \cap B] = P[A] P[B].
+        \]
+
+    2. Two families of events \( \mathcal{C} \) and \( \mathcal{D} \) are independent if any event \( A \) in $\mathcal{C}$ is independent of any event \( B \) in $\mathcal{D}$.
+    3. Two random variables \( X \) and \( Y \) are independent if the \(\sigma\)-algebras generated by their information,
+
+        \[
+        \sigma(X) = \sigma(\{X \leq x\} : x \in \mathbb{R}) \quad \text{and} \quad \sigma(Y) = \sigma(\{Y \leq x\} : x \in \mathbb{R}),
+        \]
+
+        are independent.
+
+    4. A collection of families of events \( \mathcal{C}^i \) (with \( i \) indexing the families) is independent if for every finite selection of events \( A^{i_1}, \ldots, A^{i_n} \), where \( A^{i_k}\) is in \(\mathcal{C}^{i_k} \), it holds that:
+
+        \[
+        P\left[ A^{i_1} \cap \cdots \cap A^{i_n} \right] = \prod_{k=1}^n P[A^{i_k}].
+        \]
+
+    5. A family (or sequence) of random variables \( (X_i) \) is independent if the family of \(\sigma\)-algebras \( \sigma(X_i) \) is independent.
+
+!!! warning
+
+    The first three points focus on pairwise independence for events, families, or random variables.  
+    However, for collections with more than two elements, pairwise independence is insufficient.  
+    For example, a sequence of random variables requires a stronger notion of independence that accounts for all finite subsets.  
+
+    !!! exercise
+  
+        Consider a four-element probability space \( \Omega = \{\omega_1, \omega_2, \omega_3, \omega_4\} \) with uniform probability \( P[\{\omega_i\}] = \frac{1}{4} \).
+
+        Construct three events \( A_1 \), \( A_2 \), and \( A_3 \) such that:
+        - \( A_1 \) is independent of \( A_2 \),
+        - \( A_1 \) is independent of \( A_3 \),
+        - \( A_2 \) is independent of \( A_3 \),
+        - but \( A_1 \), \( A_2 \), and \( A_3 \) together are **not** independent.
+
+        Formally:
+
+        \[
+        \begin{aligned}
+            P[A_1 \cap A_2] &= P[A_1] P[A_2], \\
+            P[A_1 \cap A_3] &= P[A_1] P[A_3], \\
+            P[A_2 \cap A_3] &= P[A_2] P[A_3], \\
+            P[A_1 \cap A_2 \cap A_3] &\neq P[A_1] P[A_2] P[A_3].
+        \end{aligned}
+        \]
+
+        If you struggle, ask ChatGPT—it can handle this.
+
+Independence is a strong assumption, but it depends on the probability measure.
+Even if two events are independent under a specific \( P \), independence might fail under a different measure.
+This concept is crucial in foundational results such as the law of large numbers and the central limit theorem, which are cornerstones of Monte Carlo methods.
+
+Let us now present a proposition related to independent random variables, which will be further explored in the context of stochastic processes and conditional expectations.
+
+!!! proposition
+
+    Let \( X \) and \( Y \) be two independent bounded random variables.  
+    Then:
+    \[
+    E[X Y] = E[X] E[Y].
+    \]
+
+!!! proof "Proof sketch"
+
+    Consider the case where \( X = 1_A \) and \( Y = 1_B \) are indicator functions.  
+    Independence of \( X \) and \( Y \) implies that \( A \) and \( B \) are independent.  
+    Hence:
+    \[
+    E[XY] = E[1_A 1_B] = E[1_{A \cap B}] = P[A \cap B] = P[A] P[B] = E[X] E[Y].
+    \]
+
+    This reasoning extends easily to simple random variables, as the \(\sigma\)-algebras generated by \( X \) and \( Y \) correspond to the events on which they are defined.
+
+    For the general case, approximate \( X \) and \( Y \) by sequences of simple random variables \( (X_n) \) and \( (Y_n) \), and use the properties of independence and limits of expectations.
 
 
