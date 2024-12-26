@@ -51,7 +51,10 @@ nav:
           - What is Risk: lecture/02-risk-management/021-what-is-risk.md
           - Risk Preferences and Measures: lecture/02-risk-management/022-risk-preferences.md
           - Expected Shortfall: lecture/02-risk-management/023-oce.md
-
+      - Multi Period Model:
+          - Multi Period Financial Market: lecture/03-Multi-Period/031-multi-period-financial-markets.md
+          - American Options: lecture/03-Multi-Period/032-american-options.md
+          - Ruin: lecture/03-Multi-Period/033-ruin-probability.md
   - Math Add On:
       - Probability: material/probability.md
       - Processes: material/stochastic.md

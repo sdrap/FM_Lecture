@@ -268,8 +268,8 @@ In other terms the sum, product, composition with continuous function of random 
 
         ----
     
-        ![Indicator Function](./../../images/indicator_dark.svg#only-dark){align = right}
-        ![Indicator Function](./../../images/indicator_white.svg#only-light){ align = right}
+        ![Indicator Function](./../images/indicator_dark.svg#only-dark){align = right}
+        ![Indicator Function](./../images/indicator_white.svg#only-light){ align = right}
 
     </div>
     
@@ -309,8 +309,8 @@ In other terms the sum, product, composition with continuous function of random 
 
         ----
     
-        ![Simple RV](./../../images/simple_rv_dark.svg#only-dark){align = right}
-        ![Simple RV](./../../images/simple_rv_white.svg#only-light){ align = right}
+        ![Simple RV](./../images/simple_rv_dark.svg#only-dark){align = right}
+        ![Simple RV](./../images/simple_rv_white.svg#only-light){ align = right}
 
     </div>
 
@@ -545,8 +545,8 @@ Extending this concept is straightforward for any positive simple random variabl
 
     ---
     
-    ![Expectation Simple RV](./../../images/expectation_dark.svg#only-dark){align = right}
-    ![Expecation Simple RV](./../../images/expectation_white.svg#only-light){ align = right}
+    ![Expectation Simple RV](./../images/expectation_dark.svg#only-dark){align = right}
+    ![Expecation Simple RV](./../images/expectation_white.svg#only-light){ align = right}
 
 </div>
 
@@ -582,15 +582,15 @@ The idea is to approximate from below this random variable by simple ones and ta
 
     ----
     
-    ![Expectation 1](./../../images/expectation1_dark.svg#only-dark){align = right}
-    ![Expectation 1](./../../images/expectation1_white.svg#only-light){ align = right}
+    ![Expectation 1](./../images/expectation1_dark.svg#only-dark){align = right}
+    ![Expectation 1](./../images/expectation1_white.svg#only-light){ align = right}
 
 - __Second Approximation__
 
     ---
     
-    ![Expectation 2](./../../images/expectation2_dark.svg#only-dark){align = right}
-    ![Expectation 2](./../../images/expectation2_white.svg#only-light){ align = right}
+    ![Expectation 2](./../images/expectation2_dark.svg#only-dark){align = right}
+    ![Expectation 2](./../images/expectation2_white.svg#only-light){ align = right}
 
 </div>
 
