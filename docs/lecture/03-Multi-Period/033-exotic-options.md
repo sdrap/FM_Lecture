@@ -12,7 +12,7 @@ C^{call}_{up\&out} = \left( S_T - K \right)^+ 1_{\{S_t < B \colon t=0, \ldots, T
 This usually would require Monte Carlo methods which are less accurate and slower to compute.
 However, in the case of barrer option, a mathematical result known as the relexion principle will reduce the dimension of the integration from $T+1$ to $2$ which does not depends in complexity on the number of steps and is easy to compute.
 
-The key to price barrier options is to know the joint distribution of $S_T$ and the running maximum $\overline{S}_T$.  
+The key to price barrier options is to know the joint distribution of $S_T$ and the running maximum $\overline{S}_T$.
 In order to keep the formulas easy, we make the following assumption:
 
 \[

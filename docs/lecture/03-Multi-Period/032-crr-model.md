@@ -15,7 +15,7 @@ As for the information we consider the stochastic process $Y=(Y_t)_{t=1, \ldots 
 \begin{equation*}
   \begin{split}
     Y_t\colon \Omega & \longmapsto \{-1, 1\}\\
-              \omega & \longrightarrow Y_t(\omega) = \text{result of coin toss at time }t
+              \omega & \longrightarrow Y_t(\omega) = \omega_t =  \text{result of coin toss at time }t
   \end{split}
 \end{equation*}
 \]
@@ -163,13 +163,13 @@ Since the market is complete, we can therefore:
       \pi(C) + \sum_{s=1}^T \eta_s \Delta X_s = \frac{C}{(1 + r)^T}
     \]
 
-In particular, given the replicating strategy \(\eta\), we can even provide the price at any time by means of
+In particular, given the replicating strategy \(\eta\), we can even provide the (discounted) price at any time by means of
 
 \[
     V_t = \pi(C) + \sum_{s=1}^t \eta_s \Delta X_s = E^\ast\left[ \frac{C}{(1 + r)^T} \mid \mathcal{F}_t \right]
 \]
 
-**Pricing** (i.e., computing \(\pi(C)\)) and **Hedging** (i.e., finding \(\eta\)) are the two of three (managing risk is a fundamental component) main activities of financial institutions engaging in derivative trading.
+**Pricing** (i.e., computing \(\pi(C)\)) and **Hedging** (i.e., finding \(\eta\)) are two of three (managing risk is a fundamental component) main activities of financial institutions engaging in derivative trading.
 
 Before any further assumptions, as for the price, since we have an explicit expression for $P^\ast$, it holds that
 
@@ -186,7 +186,7 @@ where $l(\omega) = \# \{t \colon \omega_t = 1\}$.
     Hence, it is not efficiently implementable, and without further assumptions, this curse of dimensionality can only be overcome through Monte-Carlo methods, sampling a large number, though less than $2^{260}$ of paths and approximating the expectation.
     
 
-## Reducing complexity: Vanilla Derivatives
+## Reducing Complexity: Vanilla Derivatives
 
 Many of the derivatives are plain vanilla European options, that is derivatives which discounted value only depends on the last value of the underlying:
 
@@ -286,15 +286,6 @@ This allows us to state the discrete formulation of partial differential equatio
 
     The next steps $T-2, \ldots, 0$ follows the same argumentation.
 
-!!! remark
-
-    The function $\Delta_t$ is called the **delta** hedge in finance.
-    The notation is a bit unfortunate in regards to our notation for difference, but is makes sense if you notice that this is the discrete version of the derivative of the portfolio value with respect to the underlying asset $\partial v_t/\partial S_t$ coinciding with the Black and Sholes framework.
-
-!!! proof
-
-    Fix $1\leq t\leq T$, being a hedging strategy, $\eta$ mut satisfy $\eta_t (X_t- X_{t-1}) = V_t - V_{t-1}$.
-    For any path $\omega = (\omega_1, \ldots, \omega_T)$, since $\eta_t$, $X_{t-1}$ and $V_{t-1}$ are predictable, they only depends on $\omega_1, \ldots, \omega_{t-1}$ and 
 
 ### Dynamic Hedging
 
@@ -314,6 +305,12 @@ Again, in the setting of plain vanilla european option, these ones can be comput
     \[
         \displaystyle \Delta_t(x) = (1+r)^t \frac{v_t(x(1+u)) - v_t(x(1+d))}{x(1+u) - x(1+d)}
     \]
+
+!!! remark
+
+    The function $\Delta_t$ is called the **delta** hedge in finance.
+    The notation is a bit unfortunate in regards to our notation for difference, but is makes sense if you notice that this is the discrete version of the derivative of the portfolio value with respect to the underlying asset $\partial v_t/\partial S_t$ coinciding with the Black and Sholes framework.
+
 
 !!! proof
 

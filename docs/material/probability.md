@@ -978,14 +978,13 @@ This concept can be extended to random variables and families of events, with si
 
 !!! warning
 
-    The first three points focus on pairwise independence for events, families, or random variables.  
-    However, for collections with more than two elements, pairwise independence is insufficient.  
+    The first three points focus on pairwise independence for events, families, or random variables.
+    However, for collections with more than two elements, pairwise independence is insufficient. 
     For example, a sequence of random variables requires a stronger notion of independence that accounts for all finite subsets.  
 
     !!! exercise
   
         Consider a four-element probability space \( \Omega = \{\omega_1, \omega_2, \omega_3, \omega_4\} \) with uniform probability \( P[\{\omega_i\}] = \frac{1}{4} \).
-
         Construct three events \( A_1 \), \( A_2 \), and \( A_3 \) such that:
         - \( A_1 \) is independent of \( A_2 \),
         - \( A_1 \) is independent of \( A_3 \),
@@ -1013,8 +1012,9 @@ Let us now present a proposition related to independent random variables, which 
 
 !!! proposition
 
-    Let \( X \) and \( Y \) be two independent bounded random variables.  
+    Let \( X \) and \( Y \) be two independent bounded random variables.
     Then:
+
     \[
     E[X Y] = E[X] E[Y].
     \]
@@ -1032,4 +1032,62 @@ Let us now present a proposition related to independent random variables, which 
 
     For the general case, approximate \( X \) and \( Y \) by sequences of simple random variables \( (X_n) \) and \( (Y_n) \), and use the properties of independence and limits of expectations.
 
+## Conditional Expectation
 
+The conditional expectation is the first step towards stochastic processes.
+It is basically the best approximation in terms of expectation given some information.
+In other terms, let $\mathcal{G}\subseteq \mathcal{F}$ be a sub-$\sigma$-algebra of events, what is the best approximation of the expectation of $X$ knowing the events in $\mathcal{G}$.
+
+!!! theorem "Conditional Expectation"
+
+    Let $(\Omega, \mathcal{F}, P)$ be a probability space, $X$ a random variable and $\mathcal{G}\subseteq \mathcal{F}$ a $\sigma$-algebra.
+
+    Then, there exists a unique(1) random variable $Y$ with the properties
+
+    1. $Y$ is $\mathcal{G}$-measurable;
+    2. $E[Y1_A] = E[X1_A]$ for any event $A$ in $\mathcal{G}$.
+
+??? proof
+
+    The proof of the theorem is a consequence of Radon-Nykodym derivative.
+    Indeed, define the measurs $Q^+$ and $Q^-$
+
+    \[
+        \begin{equation*}
+            \begin{split}
+                Q^\pm \colon \mathcal{G} &\longrightarrow [0, \infty)\\
+                            A & \longmapsto Q^\pm[A] = E[X^\pm 1_A]
+            \end{split}
+        \end{equation*}
+    \]
+
+    which are measures defined on the smallest $\sigma$-algebra of events $\mathcal{G}$.
+    These measures are absolutely continuous with respect to $P$, and therefore there exists unique $dQ^\pm/dP$ their densities that are $\mathcal{G}$-measurable.
+
+    Defining 
+
+    \[
+        Y = \frac{dQ^+}{dP} - \frac{dQ^-}{dP}
+    \]
+
+    give a unique $\mathcal{G}$-measurable random variable satistying by definition the expectation property.
+
+Since the random variable satisfying the two conditions is unique(1) we can therefore use it as definition.
+
+!!! definition "Conditional Expectation"
+
+    The conditional expectation of a random variable $X$ with respect to $\mathcal{G}$ is denoted by $E[X|\mathcal{G}]$ and is defined as the unique random variable which is $\mathcal{G}$-measurable and such that \( E[ E[X |\mathcal{G}]1_A] = E[X 1_A]\) for all events $A$ in $\mathcal{G}$.
+
+
+The conditional expectation shares most of the properties of the traditional expectation
+
+!!! proposition
+
+    Let $X$ be a random variable, $\mathcal{G} \subseteq \mathcal{F}$.
+    It holds that
+    
+    * **Expectation:** $E[E[X|\mathcal{G}]] = E[X]$
+    * **Conditional Linearity:** $E[Y X + Z |\mathcal{G}] = Y E[X |\mathcal{G}] + Z$ for any random variables $Y$ and $Z$ which are $\mathcal{G}$-measurable.
+    * **Tower Property:** $E[E[X | \mathcal{G_2}] | \mathcal{G}_1] = E[X|\mathcal{G}_1]$ if $\mathcal{G}_1\subseteq \mathcal{G}_2$.
+    * **Trivial:** $E[X |\mathcal{F}_0] = E[X]$ if $\mathcal{F}_0 = \{\emptyset, \Omega\}$,
+    * **Independence:** $E[X | \mathcal{G}] = E[X]$ if $X$ is independent of $\mathcal{G}$.

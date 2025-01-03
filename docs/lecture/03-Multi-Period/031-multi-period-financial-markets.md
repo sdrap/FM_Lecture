@@ -265,7 +265,7 @@ This statement brings us to the following important notion in the theory of stoc
     3. \(M\) satisfies the \(Q\)-martingale property, that is,  
 
         \[
-          E_Q\left[M_{t+1}|\mathcal{F}_t\right] = M_t,
+          E^Q\left[M_{t+1}|\mathcal{F}_t\right] = M_t,
         \]  
     
         for every \(t = 0, \ldots, T-1\).
@@ -293,7 +293,7 @@ which leads to the definition of a pricing measure
 
 !!! definition
 
-    A probability measure $P^\ast$ is called a **pricing measure** if the discounted price process $\boldsymbol{X}$ is a -- $d$-dimensional -- $P^\ast$-martingale.
+    A probability measure $P^\ast$ is called a **pricing measure** if the discounted price process $\boldsymbol{X}$ is a $d$-dimensional $P^\ast$-martingale.
 
 
 !!! proposition
