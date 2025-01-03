@@ -454,3 +454,24 @@ fig_black.write_image("./../docs/images/ocefun_dark.svg")
 #%%
 
 from scipy.stats import norm
+
+N = 10000
+u = np.random.rand(N)
+x0 = norm.ppf(u)
+x1 = norm.rvs(size=N)
+
+fig = go.Figure()
+fig.add_histogram(
+    x=x0,
+    histnorm='probability',
+    name='Quantile of Uniform Sample',
+    marker=dict(color=plt_colors[0])
+    )
+fig.add_histogram(
+    x=x1,
+    histnorm='probability',
+    name='Standard Normal Sample',
+    marker=dict(color=plt_colors[1])
+    )
+
+fig.show()

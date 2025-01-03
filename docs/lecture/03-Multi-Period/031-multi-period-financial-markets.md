@@ -107,7 +107,7 @@ In general, a family $Z = (Z_t)_{t=0, \ldots, T}$ where each $Z_t$ is a random v
         where \( \Delta \boldsymbol{X}_s = \boldsymbol{X}_s - \boldsymbol{X}_{s-1} \).
     
     
-### Information
+## Information
 
 Up to now, we have not considered how decisions are influenced by additional information.
 Mathematically, information is represented by collections of events.
@@ -478,4 +478,5 @@ Those options are typically called exotic derivatives.
     However, for barrier options, it turns out that in specific contexts, regardless of the horizon \(T\), the integration can be reduced to a two-dimensional one, which is tractable.
     Therefore, the popularity of barrier options (or similarly, snowball options).
 
-   
+  
+
