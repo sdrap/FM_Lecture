@@ -405,6 +405,17 @@ Those options are typically called exotic derivatives.
     \end{align*}
     \]
 
+    In the following illustration thick lines stands for paths while dashed stands for exanding average.
+    For an asian call, only the red scenario returns a positive outcome.
+    In contrast, for the standard call, only the red scenario is void.
+
+
+    ![Asian](./../../images/asian_dark.svg#only-dark){align = right}
+    ![Asian](./../../images/asian_white.svg#only-light){ align = right}
+
+
+
+
 * **Barrier Options**: Barrier options are options that depends on the path of the underlying hitting or not a given barrier at a given previous time.
 
     To do so, for a financial asset $S$, we define the **rolling maximum** $\overline{S}$ and **minimum** $\underline{S}$ as
@@ -444,6 +455,15 @@ Those options are typically called exotic derivatives.
         \end{cases}
       \end{align*}
     \]
+
+    In the following illustration thick lines stands for paths while dashed stands for the running maximum.
+    For an up and out call, only the orange scenario returns a positive outcome.
+    The blue scenario is above the strike however knocked the barrier before $T$.
+
+
+    ![Barrier](./../../images/barrer_dark.svg#only-dark){align = right}
+    ![Barrier](./../../images/barrer_white.svg#only-light){ align = right}
+
 
 
 
