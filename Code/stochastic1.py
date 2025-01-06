@@ -226,6 +226,11 @@ fig.update_layout(
     )
 )
 
+
+fig.show()
+
+#%%
+
 fig_white = fig
 fig_black = fig
 

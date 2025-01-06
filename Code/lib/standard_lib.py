@@ -20,7 +20,7 @@ tqdm.pandas(desc="my bar!")
 pd.options.plotting.backend = "plotly"
 
 pio.templates["draft"] = go.layout.Template()
-pio.templates["draft"].layout.legend = {"orientation": "h"}
+pio.templates["draft"].layout.legend = {"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1}
 pio.templates["draft"].layout.autosize = False
 pio.templates["draft"].layout.width = 800
 pio.templates["draft"].layout.height = 500

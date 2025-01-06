@@ -56,7 +56,7 @@ nav:
           - Binomial Model: lecture/03-Multi-Period/032-crr-model.md
           - Exotic Options: lecture/03-Multi-Period/033-exotic-options.md
           - American Options: lecture/03-Multi-Period/034-american-options.md
-          # - Ruin: lecture/03-Multi-Period/035-ruin-probability.md
+          - Default Probability: lecture/03-Multi-Period/035-ruin-probability.md
   - Math Add On:
       - Probability: material/probability.md
       - Processes: material/stochastic.md
