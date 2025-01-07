@@ -1,6 +1,7 @@
 # Exercises: Probability and Stochastic Processes
 
 
+## Probability
 
 !!! remark
 
@@ -158,7 +159,7 @@
 
 
 
-
+## Stochastic Processes
 
 !!! exercise
 

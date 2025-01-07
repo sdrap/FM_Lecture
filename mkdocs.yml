@@ -65,6 +65,7 @@ nav:
   - Exercises: 
       - One Period Model: material/ex01.md
       - Risk Management: material/ex02.md
+      - Multi Period Model: material/ex03.md 
       - Probability and Stochastic Processes: material/ex_math.md 
 
 extra_css:
