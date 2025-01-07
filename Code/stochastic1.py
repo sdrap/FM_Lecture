@@ -168,20 +168,46 @@ fig_black.write_image("./../docs/images/asian_dark.svg")
 T = 100
 start = 100
 paths = 3
-seed = 101,
+
+seed = 10,
 u = 0.05
 d = 1/1.05 - 1
 
 X = np.arange(T+1)
-Y = geom_walk(T, start = start, u = u, d= d, paths = paths, seed = seed)
+Y = random_walk(T, start = start, p = 0.6, paths = paths, seed = seed)
 
 # Create the figure
 fig = go.Figure()
 
+
+tau = np.array([40, 60, 80])
+
+
 for k in range(paths):
     fig.add_scatter(
-        x=X,
-        y=Y[:, k],
+        x=X[:tau[k]+1],
+        y=Y[:tau[k] + 1, k],
+        mode='lines',
+        name=r"$t \mapsto S_t^\tau(\omega_{})$".format(k+1),
+        showlegend=True,
+        line_shape = 'linear',
+        line = dict(color = plt_colors[k]),
+        opacity = 1
+    )
+    fig.add_scatter(
+        x=X[tau[k]:],
+        y=Y[tau[k]:, k],
+        mode='lines',
+        name=f"Random walk {k+1}",
+        showlegend=False,
+        line_shape = 'linear',
+        line = dict(color = plt_colors[k], dash = 'dashdot'),
+        opacity = 0.3
+    )
+
+    fig.add_scatter(
+        x=X[tau[k]:],
+        y=[Y[tau[k], k]] * len(X[tau[k]:]),
         mode='lines',
         name=f"Random walk {k+1}",
         showlegend=False,
@@ -190,26 +216,22 @@ for k in range(paths):
         opacity = 1
     )
 
-    fig.add_scatter(
-        x=X,
-        y=np.maximum.accumulate(Y[:, k]),
-        mode='lines',
-        name=f"Random walk {k+1}",
-        showlegend=False,
-        line_shape = 'linear',
-        line = dict(color = plt_colors[k], dash = 'dash'),
-        opacity = 0.3
+    fig.add_vline(
+        x = tau[k],
+        line_color = plt_colors[k],
+        line_width = 2,
+        line_dash = 'dot',
+        opacity = 0.8,
+        annotation_text=r"$\tau(\omega_{})$".format(k+1), 
+        annotation_position="bottom right"
     )
 
 
-fig.add_hline(y = 160, line_color = plt_colors[-3], line_width = 2)
-
 fig.update_layout(
-    showlegend=False,
     xaxis=dict(
         showline = False,
         zeroline = False,
-        showgrid = True,
+        showgrid = False,
         showticklabels = True,
         tickmode = 'array',
         tickvals = [0, 100],
@@ -219,27 +241,21 @@ fig.update_layout(
     yaxis=dict(
         showline = False,
         zeroline = False,
-        showgrid = True,
+        showgrid = False,
         tickmode = 'array',
-        tickvals = [100, 110, 160],
-        ticktext = [r'$S_0$',r'$K$', r'$B$'],
+        tickvals = [100],
+        ticktext = [r'$S_0$'],
     )
 )
-
-
 fig.show()
-
-#%%
 
 fig_white = fig
 fig_black = fig
 
-fig_white.add_hline(y = 110, line_color = "black", line_width = 2)
 fig_white.update_layout(template = "plotly_white+draft")
-fig_white.write_image("./../docs/images/barrer_white.svg")
-fig_white.add_hline(y = 110, line_color = "grey", line_width = 2)
+fig_white.write_image("./../docs/images/stopping_white.svg")
 fig_black.update_layout(template = "plotly_dark+draft")
-fig_black.write_image("./../docs/images/barrer_dark.svg")
+fig_black.write_image("./../docs/images/stopping_dark.svg")
 
 fig_white.show()
 
