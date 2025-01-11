@@ -11,7 +11,7 @@
 
         Given two probability measure $P$ and $Q$ we say that
 
-        1. $Q$ is absolutely continuous with repext to $P$ and denote $Q\ll P$ if 
+        1. $Q$ is absolutely continuous with respect to $P$ and denote $Q\ll P$ if 
 
             \[ P[A] = 0 \quad \text{implies} \quad Q[A] = 0\]
 
