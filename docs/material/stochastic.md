@@ -309,8 +309,8 @@ The event $\{\tau=\infty\}$ represents the event where the triggering conditions
         \end{equation*}
     \]
 
-    ![Stopped](./../../images/stopping_dark.svg#only-dark)
-    ![Stopped](./../../images/stopping_white.svg#only-light)
+    ![Stopped](./../images/stopping_dark.svg#only-dark)
+    ![Stopped](./../images/stopping_white.svg#only-light)
 
 Stopping an adapted process, then it remains an adapted process.
 
