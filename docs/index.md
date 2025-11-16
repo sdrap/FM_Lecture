@@ -6,6 +6,8 @@ hide:
 
 # Financial Mathematics: Lecture Notes
 
+Update: 2025-11-16
+
 These lecture notes, still a work in progress, are for a course taught at [Shanghai Advanced Institute for Finance](https://saif.sjtu.edu.cn), [Shanghai Jiao Tong University](https://www.sjtu.edu.cn), for graduate students.
 
 
@@ -32,4 +34,6 @@ The course combines blackboard lectures with practical applications in Python. L
 For further reading, we recommend *Shreve[@Shreve2004]* for an introduction to mathematical finance in discrete time and *Föllmer and Schied[@foellmer01]* for a more advanced treatment.
 
 ## References
+
+
 
